@@ -1,0 +1,19 @@
+{
+  "name": "clarkfecsource",
+  "version": "1.0.0",
+  "description": "Q and A module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrCO-Team-Blank/ClarkFECSource.git"
+  },
+  "author": "Chris Clark",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hrCO-Team-Blank/ClarkFECSource/issues"
+  },
+  "homepage": "https://github.com/hrCO-Team-Blank/ClarkFECSource#readme"
+}
