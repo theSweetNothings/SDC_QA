@@ -3,7 +3,9 @@ import SearchBar from './components/SearchBar/SearchBar.jsx';
 
 const App = function() {
   return (
-    <h1>Your mom</h1>
+    <React.Fragment>
+      <SearchBar/>
+    </React.Fragment>
   );
 };
 
