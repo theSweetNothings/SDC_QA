@@ -1,13 +1,16 @@
 import React from 'react';
 import SearchBar from './components/SearchBar/SearchBar.jsx';
-import Button from 'react-bootstrap/Button';
+import styled from 'styled-components';
+
+const StyledContainer = styled.section`
+  font-family: Arial, Helvetica, sans-serif;
+`;
 
 const App = function() {
   return (
-    <React.Fragment>
+    <StyledContainer>
       <SearchBar/>
-      <Button/>
-    </React.Fragment>
+    </StyledContainer>
   );
 };
 
