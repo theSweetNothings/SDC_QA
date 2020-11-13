@@ -11,7 +11,6 @@ const App = function() {
   return (
     <StyledContainer>
       <SearchBar/>
-      <QuestionList/>
     </StyledContainer>
   );
 };

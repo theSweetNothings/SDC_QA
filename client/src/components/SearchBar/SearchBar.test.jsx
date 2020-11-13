@@ -5,8 +5,7 @@ import QuestionList from '../QuestionList/QuestionList.jsx';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-// Unit Tests for SearchBar component
-describe('SearchBar', () => {
+describe('SearchBar Unit Testing', () => {
   // Render the searchbar component before each test and then unmount it afterwards
   beforeEach(() => render(<SearchBar/>));
   afterEach(cleanup);
