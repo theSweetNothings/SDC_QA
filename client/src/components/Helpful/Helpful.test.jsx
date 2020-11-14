@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 describe('Helpful Unit Testing', () => {
   // Render Helpful before each test and unmount it afterwards
   beforeEach(() => render(<Helpful helpful={25}/>));
-  afterEach(cleanup());
+  afterEach(cleanup);
 
   test('Renders Helpful component to page with props passed to Yes', () => {
     expect(screen.getByText('Helpful?')).toBeInTheDocument();

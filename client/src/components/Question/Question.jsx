@@ -2,27 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import Helpful from '../Helpful/Helpful.jsx';
 
-const Container = style.section`
+const Container = styled.section`
   display: flex;
 `;
 
-const Question = style.article`
+const StyledQuestion = styled.article`
   font-weight: bold
   justify-self: start;
 `;
 
-const HelpfulAndAddAnswer = style.article`
+const HelpfulAndAddAnswer = styled.article`
   justify-self: end;
 `;
 
 const Question = function(props) {
   return (
     <Container>
-      <Question>
-        <h3>{props.question}</h3>
-      </Question>
+      <StyledQuestion>
+        <h3>Q: {props.question}?</h3>
+      </StyledQuestion>
       <HelpfulAndAddAnswer>
-        <Helpful/>
+        <Helpful helpful={props.helpful}/>
         |
         <p>Add Answer</p>
       </HelpfulAndAddAnswer>
