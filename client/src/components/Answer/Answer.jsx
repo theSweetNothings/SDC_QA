@@ -12,12 +12,12 @@ const Answer = function(props) {
     <section>
       <StyledArticle>
         <h3><strong>A: </strong></h3>
-        <p>{props.answer}</p>
+        <p>{props.answer.answer}</p>
       </StyledArticle>
       <StyledArticle>
-        <p>by {props.user.name}, {props.user.date}</p>
+        <p>by {props.answer.user}, {props.answer.date}</p>
         |
-        <Helpful helpful={props.helpful}/>
+        <Helpful helpful={props.answer.helpful}/>
         |
         <p><u>Report</u></p>
       </StyledArticle>

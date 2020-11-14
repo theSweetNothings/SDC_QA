@@ -24,7 +24,7 @@ const Question = function(props) {
       <HelpfulAndAddAnswer>
         <Helpful helpful={props.helpful}/>
         |
-        <p>Add Answer</p>
+        <p><u>Add Answer</u></p>
       </HelpfulAndAddAnswer>
     </Container>
   );
