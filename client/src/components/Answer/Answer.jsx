@@ -10,7 +10,10 @@ const StyledArticle = styled.article`
 const Answer = function(props) {
   return (
     <section>
-      <h1>A: {props.answer}</h1>
+      <StyledArticle>
+        <h3><strong>A: </strong></h3>
+        <p>{props.answer}</p>
+      </StyledArticle>
       <StyledArticle>
         <p>by {props.user.name}, {props.user.date}</p>
         |

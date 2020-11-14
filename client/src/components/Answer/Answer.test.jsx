@@ -9,7 +9,8 @@ describe('Answer Unit Testing', () => {
   afterEach(cleanup);
 
   test('Renders Answer component to the screen', () => {
-    expect(screen.getByText('A: Dash Rendar')).toBeInTheDocument();
+    expect(screen.getByText('A:')).toBeInTheDocument();
+    expect(screen.getByText('Dash Rendar')).toBeInTheDocument();
   });
 
   // Integration test between Answer and Helpful Components
