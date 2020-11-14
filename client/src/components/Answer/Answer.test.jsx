@@ -16,7 +16,8 @@ describe('Answer Unit Testing', () => {
   // Integration test between Answer and Helpful Components
   test('Answer renders Helper component to screen', () => {
     expect(screen.getByText('Helpful?')).toBeInTheDocument();
-    expect(screen.getByText('Yes (85)')).toBeInTheDocument();
+    expect(screen.getByText('Yes')).toBeInTheDocument();
+    expect(screen.getByText('(85)')).toBeInTheDocument();
   });
 
   test('Answer renders username with date to screen', () => {

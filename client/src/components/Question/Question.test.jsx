@@ -15,7 +15,8 @@ describe('Question Unit Testing', () => {
   // Integration Test between Question and Helpful
   test('Question renders Helper component to screen', () => {
     expect(screen.getByText('Helpful?')).toBeInTheDocument();
-    expect(screen.getByText('Yes (34)')).toBeInTheDocument();
+    expect(screen.getByText('Yes')).toBeInTheDocument();
+    expect(screen.getByText('(34)')).toBeInTheDocument();
   });
 
   test('Question renders Add Answer to screen', () => {

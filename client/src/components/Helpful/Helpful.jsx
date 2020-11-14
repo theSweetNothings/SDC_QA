@@ -4,7 +4,7 @@ const Helpful = function(props) {
   return (
     <article>
       <p>Helpful?</p>
-      <p>Yes ({props.helpful})</p>
+      <p><u>Yes</u> ({props.helpful})</p>
     </article>
   )
 };

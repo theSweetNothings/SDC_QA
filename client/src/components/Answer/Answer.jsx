@@ -19,7 +19,7 @@ const Answer = function(props) {
         |
         <Helpful helpful={props.helpful}/>
         |
-        <p>Report</p>
+        <p><u>Report</u></p>
       </StyledArticle>
     </section>
   );
