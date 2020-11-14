@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 describe('Answer Unit Testing', () => {
   // Mount Answer to the DOM before each test and unmount it afterwards
-  beforeEach(() => render(<Answer answer='Dash Rendar' helpful={85} user={{ name: 'User5678', data: 'January 1, 2011'}}/>));
+  beforeEach(() => render(<Answer answer='Dash Rendar' helpful={85} user={{ name: 'User5678', date: 'January 1, 2011'}}/>));
   afterEach(cleanup);
 
   test('Renders Answer component to the screen', () => {
@@ -19,8 +19,7 @@ describe('Answer Unit Testing', () => {
   });
 
   test('Answer renders username with date to screen', () => {
-    expect(screen.getByText('User5678')).toBeInTheDocument();
-    expect(screen.getByText('January 1, 2011')).toBeInTheDocument();
+    expect(screen.getByText('by User5678, January 1, 2011')).toBeInTheDocument();
   });
 
   test('Answer renders Report navlink to screen', () => {
