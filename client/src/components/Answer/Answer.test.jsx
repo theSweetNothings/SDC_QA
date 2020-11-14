@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import Answer from './Answer.jsx';
 import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -26,4 +26,4 @@ describe('Answer Unit Testing', () => {
   test('Answer renders Report navlink to screen', () => {
     expect(screen.getByText('Report')).toBeInTheDocument();
   });
-});*/
+});
