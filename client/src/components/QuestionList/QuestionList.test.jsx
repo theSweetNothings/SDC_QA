@@ -9,6 +9,7 @@ describe('QuestionList Unit Testing', () => {
   const questions = [
     {
       question: 'Who is the main playable character in the Shadows of the Empire game',
+      helpful: 55,
       answers: [
         {
           answer: 'Dash Rendar',
@@ -35,6 +36,7 @@ describe('QuestionList Unit Testing', () => {
     },
     {
       question: 'What is the name of Dash Rendar\'s ship',
+      helpful: 54,
       answers: [
         {
           answer: 'Ebon Hawk',

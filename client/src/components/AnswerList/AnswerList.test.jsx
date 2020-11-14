@@ -8,13 +8,6 @@ describe('AnswerList Unit Testing', () => {
   // Answers to pass as props
   const answers = [
     {
-      answer: 'Dash Rendar',
-      user: 'User5678',
-      date: 'January 1, 2011',
-      helpful: 85,
-      id: 1
-    },
-    {
       answer: 'Outrider',
       user: 'User234',
       date: 'February 2, 2012',
@@ -27,6 +20,13 @@ describe('AnswerList Unit Testing', () => {
       date: 'March 3, 2012',
       helpful: 23,
       id: 3
+    },
+    {
+      answer: 'Dash Rendar',
+      user: 'User5678',
+      date: 'January 1, 2011',
+      helpful: 85,
+      id: 1
     }
   ];
   // Mount Answer List before each test and unmount it afterwards

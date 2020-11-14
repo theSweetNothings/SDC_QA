@@ -1,12 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const Article = styled.article`
+  display: flex;
+`;
 
 const Helpful = function(props) {
   return (
-    <article>
-      <p>Helpful?</p>
+    <Article>
+      <p style={{ marginRight: '.25rem'}}>Helpful?</p>
       <p><u>Yes</u> ({props.helpful})</p>
-    </article>
-  )
+    </Article>
+  );
 };
 
 export default Helpful;

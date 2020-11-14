@@ -3,13 +3,15 @@ import SearchBar from './components/SearchBar/SearchBar.jsx';
 import QuestionList from './components/QuestionList/QuestionList.jsx';
 import styled from 'styled-components';
 
-const StyledContainer = styled.section`
+const Container = styled.section`
   font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
 `;
 
 const questions = [
   {
     question: 'Who is the main playable character in the Shadows of the Empire game',
+    helpful: 55,
     answers: [
       {
         answer: 'Dash Rendar',
@@ -36,6 +38,7 @@ const questions = [
   },
   {
     question: 'What is the name of Dash Rendar\'s ship',
+    helpful: 54,
     answers: [
       {
         answer: 'Ebon Hawk',
@@ -64,10 +67,10 @@ const questions = [
 
 const App = function() {
   return (
-    <StyledContainer>
+    <Container>
       <SearchBar/>
       <QuestionList questions={questions}/>
-    </StyledContainer>
+    </Container>
   );
 };
 
