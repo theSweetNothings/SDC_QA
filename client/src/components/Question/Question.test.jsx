@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 describe('Question Unit Testing', () => {
   // Render Question before each test and unmount it afterwards
-  beforeEach(() => render(<Question question='Who is the main playable character in the Shadows of the Empire game' helpful={34}/>));
+  beforeEach(() => render(<Question question='Who is the main playable character in the Shadows of the Empire game?' helpful={34}/>));
   afterEach(cleanup);
 
   test('Renders Question component to screen', () => {

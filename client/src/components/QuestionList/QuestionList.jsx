@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
 import Question from '../Question/Question.jsx';
-import { v4 as uuidv4 } from 'uuid';
 
 const Container = styled.section`
   display: flex;
@@ -23,11 +22,11 @@ const QuestionList = function(props) {
     <Container>
       {// Sort questions in desc order by helpfulness & render a Question component for each sorted question
       props.questions
-        .sort((a,b) => b.helpful - a.helpful)
+        .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
         .map(question => (
-          <Section key={uuidv4()}>
-            <Question question={question.question} helpful={question.helpful}/>
-            <AnswerList answers={question.answers}/>
+          <Section key={question.question_id}>
+            <Question question={question.question_body} helpful={question.question_helpfulness}/>
+            <AnswerList answers={Object.values(question.answers)}/>
           </Section>
         ))
       }

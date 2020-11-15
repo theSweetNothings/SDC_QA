@@ -6,10 +6,10 @@ import '@testing-library/jest-dom';
 describe('Answer Unit Testing', () => {
   // Mount Answer to the DOM before each test and unmount it afterwards
   const answer = {
-    answer: 'Dash Rendar',
-    user: 'User5678',
+    body: 'Dash Rendar',
+    answerer_name: 'User5678',
     date: 'January 1, 2011',
-    helpful: 85
+    helpfulness: 85
   };
   beforeEach(() => render(<Answer answer={answer}/>));
   afterEach(cleanup);

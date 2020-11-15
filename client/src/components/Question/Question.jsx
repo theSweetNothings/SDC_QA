@@ -26,7 +26,7 @@ const Question = function(props) {
   return (
     <Container>
       <StyledQuestion>
-        <p>Q: {props.question}?</p>
+        <p>Q: {props.question}</p>
       </StyledQuestion>
       <HelpfulAndAddAnswer>
         <Helpful helpful={props.helpful}/>

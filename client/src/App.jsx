@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useAsync } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import SearchBar from './components/SearchBar/SearchBar.jsx';
 import QuestionList from './components/QuestionList/QuestionList.jsx';
 import styled from 'styled-components';
@@ -8,68 +10,28 @@ const Container = styled.section`
   margin-top: 10px;
 `;
 
-const questions = [
-  {
-    question: 'Who is the main playable character in the Shadows of the Empire game',
-    helpful: 55,
-    answers: [
-      {
-        answer: 'Dash Rendar',
-        user: 'User5678',
-        date: 'January 1, 2011',
-        helpful: 85,
-        id: 1
-      },
-      {
-        answer: 'Han Solo',
-        user: 'User234',
-        date: 'February 2, 2012',
-        helpful: 34,
-        id: 2
-      },
-      {
-        answer: 'Chewbacca',
-        user: 'User8675309',
-        date: 'March 3, 2012',
-        helpful: 23,
-        id: 3
-      }
-    ]
-  },
-  {
-    question: 'What is the name of Dash Rendar\'s ship',
-    helpful: 54,
-    answers: [
-      {
-        answer: 'Ebon Hawk',
-        user: 'User5678',
-        date: 'January 2, 2011',
-        helpful: 24,
-        id: 1
-      },
-      {
-        answer: 'Outrider',
-        user: 'User234',
-        date: 'February 3, 2012',
-        helpful: 86,
-        id: 2
-      },
-      {
-        answer: 'Falcon',
-        user: 'User8675309',
-        date: 'March 4, 2012',
-        helpful: 33,
-        id: 3
-      }
-    ]
-  },
-];
+const App = function(props) {
+  const [questions, setQuestions] = useState([]);
 
-const App = function() {
+  // Perform GET request on mount based off product id
+  useEffect(() => {
+    let isMounted = true;   // This keeps track of whether the component is mounted
+    const id = props.match.params.id;
+    axios.get(`http://52.26.193.201:3000/qa/${id}`)
+    .then(response => {
+      if (isMounted) {    // Sets state only if the component is still mounted
+        setQuestions(response.data.results)
+      }
+    })
+    .catch(error => console.log(error));
+    // This callback fires when the component unmounts
+    return () => { isMounted = false };
+  }, []);
+
   return (
     <Container>
       <SearchBar/>
-      <QuestionList questions={questions}/>
+      {questions && <QuestionList questions={questions}/>}
     </Container>
   );
 };

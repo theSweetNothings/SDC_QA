@@ -23,12 +23,12 @@ const Answer = function(props) {
   return (
     <Container>
       <StyledAnswer>
-        <p><strong style={{ fontSize: '16px'}}>A: </strong> {props.answer.answer}</p>
+        <p><strong style={{ fontSize: '16px'}}>A: </strong> {props.answer.body}</p>
       </StyledAnswer>
       <AnswerMetadata>
-        <p>by {props.answer.user}, {props.answer.date}</p>
+        <p>by {props.answer.answerer_name}, {props.answer.date}</p>
         |
-        <Helpful helpful={props.answer.helpful}/>
+        <Helpful helpful={props.answer.helpfulness}/>
         |
         <p><u>Report</u></p>
       </AnswerMetadata>
