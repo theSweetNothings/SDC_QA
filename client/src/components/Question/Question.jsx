@@ -19,7 +19,8 @@ const HelpfulAndAddAnswer = styled.article`
   font-size: 12px;
   justify-self: end;
   justify-content: space-around;
-  width: 30%;
+  max-width: 250px;
+  min-width: 200px;
 `;
 
 const Question = function(props) {
