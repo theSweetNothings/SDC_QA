@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Helpful from '../Helpful/Helpful.jsx';
 
@@ -23,17 +23,33 @@ const HelpfulAndAddAnswer = styled.article`
   min-width: 200px;
 `;
 
-const Question = function(props) {
+const StyledText = styled.p`
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const Question = function({ helpful, product, question }) {
+  const [ showAnswerModal, setAnswerShowModal ] = useState(false);
+
+  const toggleAnswerForm = function(bool) {
+    setAnswerShowModal(bool);
+  }
+  const handleClick = function(event) {
+    toggleAnswerForm(true);
+  }
+
   return (
     <Container>
       <StyledQuestion>
-        <p>Q: {props.question}</p>
+        <p>Q: {question}</p>
       </StyledQuestion>
       <HelpfulAndAddAnswer>
-        <Helpful helpful={props.helpful}/>
+        <Helpful helpful={helpful}/>
         <p>|</p>
-        <p><u>Add Answer</u></p>
+        <StyledText onClick={handleClick}><u>Add Answer</u></StyledText>
       </HelpfulAndAddAnswer>
+      {showAnswerModal && <AnswerModal question={question} product={product}/>}
     </Container>
   );
 };

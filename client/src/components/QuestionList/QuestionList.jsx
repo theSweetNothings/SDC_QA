@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
 import Question from '../Question/Question.jsx';
+import AnswerModal from '../AnswerModal/AnswerModal.jsx';
 
 const Container = styled.section`
   display: flex;
@@ -25,7 +26,10 @@ const QuestionList = function(props) {
         .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
         .map(question => (
           <Section key={question.question_id}>
-            <Question question={question.question_body} helpful={question.question_helpfulness}/>
+            <Question
+              question={question.question_body}
+              helpful={question.question_helpfulness}
+              product={props.product}/>
             <AnswerList answers={Object.values(question.answers)}/>
           </Section>
         ))
