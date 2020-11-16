@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateformat';
 import Helpful from '../Helpful/Helpful.jsx';
 import styled from 'styled-components';
 
@@ -21,11 +22,13 @@ const AnswerMetadata = styled.article`
 `;
 
 const Answer = function(props) {
+  // Helper Function for formatting date
   const transformDate = function(date) {
-    let updated = new Date('2018-10-12T00:00:00.000Z');
-    updated = updated.toString().split(' ').slice(1, 4)
-    updated[1] = updated[1].concat(',')
-    return updated.join(' ');
+    let updated = new Date(props.answer.date);
+    return dateFormat( updated, 'mmmm d, yyyy');
+    /*updated = updated.toString().split(' ').slice(1, 4);
+    updated[1] = updated[1].concat(',');
+    return updated.join(' ');*/
   }
 
   return (

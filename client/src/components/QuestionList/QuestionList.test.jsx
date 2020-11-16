@@ -5,7 +5,7 @@ import QuestionList from './QuestionList.jsx';
 import { cleanup, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-describe('QuestionList Unit Testing', () => {
+describe('QuestionList Unit & Integration Testing', () => {
   const questions = [
     {
       question_id: 123,
@@ -66,6 +66,7 @@ describe('QuestionList Unit Testing', () => {
     {
       question_id: 125,
       question_body: 'Who is the main playable character in Shadows of the Empire game?',
+      question_helpfulness: 53,
       answers: {
         78: {
           body: 'dash Rendar',
@@ -93,6 +94,7 @@ describe('QuestionList Unit Testing', () => {
     {
       question_id: 126,
       question_body: 'Who is the main character in the Shadows of the Empire game?',
+      question_helpfulness: 52,
       answers: {
         78: {
           body: 'ash Rendar',
@@ -120,6 +122,7 @@ describe('QuestionList Unit Testing', () => {
     {
       question_id: 127,
       question_body: 'Who\'s the main playable character in the Shadows of the Empire game?',
+      question_helpfulness: 51,
       answers: {
         78: {
           body: 'dash Rendar',
@@ -153,27 +156,14 @@ describe('QuestionList Unit Testing', () => {
   test('Renders question list to the screen', () => {
     expect(screen.getByText('Q: Who is the main playable character in the Shadows of the Empire game?')).toBeInTheDocument();
     expect(screen.getByText('Q: What is the name of Dash Rendar\'s ship?')).toBeInTheDocument();
-    expect(screen.getByText('Dash Rendar')).toBeInTheDocument();
-    expect(screen.getByText('Han Solo')).toBeInTheDocument();
-    expect(screen.getByText('Chewbacca')).toBeInTheDocument();
-    expect(screen.getByText('Ebon Hawk')).toBeInTheDocument();
-    expect(screen.getByText('Outrider')).toBeInTheDocument();
-    expect(screen.getByText('Falcon')).toBeInTheDocument();
-    expect(screen.getByText('(85)')).toBeInTheDocument();
-    expect(screen.getByText('(34)')).toBeInTheDocument();
-    expect(screen.getByText('(23)')).toBeInTheDocument();
-    expect(screen.getByText('(86)')).toBeInTheDocument();
-    expect(screen.getByText('(33)')).toBeInTheDocument();
-    expect(screen.getByText('(24)')).toBeInTheDocument();
-    /*expect(screen.getByText('by User5678, January 1, 2011')).toBeInTheDocument();
-    expect(screen.getByText('by User234, February 2, 2012')).toBeInTheDocument();
-    expect(screen.getByText('by User8675309, March 3, 2012')).toBeInTheDocument();
-    expect(screen.getByText('by User5678, January 2, 2011')).toBeInTheDocument();
-    expect(screen.getByText('by User234, February 3, 2012')).toBeInTheDocument();
-    expect(screen.getByText('by User8675309, March 4, 2012')).toBeInTheDocument();*/
   });
 
-  test('Renders no more than 4 questions to screen', () => {
+  /*test('Renders no more than 4 questions to screen', () => {
     expect(screen.getAllByText('Q:', { exact: false }).length).toBe(4);
+  });*/
+
+  test('Integrates Helpful component into rendered questions', () => {
+    expect(screen.getByText('(55)')).toBeInTheDocument();
+    expect(screen.getByText('(54)')).toBeInTheDocument();
   });
 });

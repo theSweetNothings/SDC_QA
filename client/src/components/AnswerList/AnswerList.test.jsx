@@ -10,21 +10,21 @@ describe('AnswerList Unit Testing', () => {
     {
       body: 'Outrider',
       answerer_name: 'User234',
-      date: '2020-07-02T00:00:00.000Z',
+      date: '2020-07-02T13:00:00.000Z',
       helpfulness: 34,
       id: 2
     },
     {
       body: 'Leebo',
       answerer_name: 'User8675309',
-      date: '2020-07-02T00:00:00.000Z',
+      date: '2020-07-02T13:00:00.000Z',
       helpfulness: 23,
       id: 3
     },
     {
       body: 'Dash Rendar',
       answerer_name: 'User5678',
-      date: '2020-07-02T00:00:00.000Z',
+      date: '2020-07-02T13:00:00.000Z',
       helpfulness: 85,
       id: 1
     }
@@ -40,8 +40,8 @@ describe('AnswerList Unit Testing', () => {
     expect(screen.getByText('(85)')).toBeInTheDocument();
     expect(screen.getByText('(34)')).toBeInTheDocument();
     expect(screen.getByText('(23)')).toBeInTheDocument();
-    //expect(screen.getByText('by User5678, January 1, 2011')).toBeInTheDocument();
-    //expect(screen.getByText('by User234, February 2, 2012')).toBeInTheDocument();
-    //expect(screen.getByText('by User8675309, March 3, 2012')).toBeInTheDocument();
+    expect(screen.getByText('by User5678, July 2, 2020')).toBeInTheDocument();
+    expect(screen.getByText('by User234, July 2, 2020')).toBeInTheDocument();
+    expect(screen.getByText('by User8675309, July 2, 2020')).toBeInTheDocument();
   });
 });
