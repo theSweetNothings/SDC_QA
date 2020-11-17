@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import { ModalBackground, ModalContent, ModalForm, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
+import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
 
-const AnswerModal = function({ product, question }) {
+const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotosModal }) {
   const [ answer, setAnswer ] = useState({
     body: '',
     name: '',
@@ -10,6 +10,7 @@ const AnswerModal = function({ product, question }) {
     photos: []
   });
   const [ error, setError ] = useState(null);
+  const background = useRef('background');
 
   const handleChange = function(event) {
     const { name, value } = event.target;
@@ -26,11 +27,20 @@ const AnswerModal = function({ product, question }) {
         return newAnswer;
       });
     }
-  }
+  };
+
+  const handleClose = function(event) {
+    const name = event.target.getAttribute('name');
+    if (name === 'background' || name === 'close-btn') {
+      toggleAnswerForm(false);
+    }
+  };
 
   const handleClick = function(event) {
     // Use this to open photo model
-  }
+    event.preventDefault();
+    togglePhotosModal(true);
+  };
 
   const handleSubmit = function(event) {
     event.preventDefault();
@@ -53,27 +63,47 @@ const AnswerModal = function({ product, question }) {
     } else {
       setError('You must enter the following: answer, nickname, and email');
     }
-  }
+  };
 
   return (
-    <ModalBackground>
+    <ModalBackground onClick={handleClose} name='background'>
       <ModalContent>
+        <ExitModalArticle>
+          <ExitModalBtn onClick={handleClose} name='close-btn'>X</ExitModalBtn>
+        </ExitModalArticle>
         <h2>Submit your Answer</h2>
-       <h3>{product.name}:  {question.question_body}</h3>
+        <h3>{product.name}:  {question.question_body}</h3>
         <ModalForm onSubmit={handleSubmit}>
           <ModalLabel>Your Answer*
-            <ModalInput type='text' name='body' value={answer.body} onChange={handleChange}/>
+            <ModalTextarea
+              type='text'
+              name='body'
+              value={answer.body}
+              onChange={handleChange}/>
           </ModalLabel>
           <br/>
           <ModalLabel>What is your nickname?*
-            <ModalInput placeholder='Example: jack543!' type='text' name='name' value={answer.name} onChange={handleChange}/>
+            <ModalInput
+              placeholder='Example: jack543!'
+              type='text'
+              name='name'
+              value={answer.name}
+              onChange={handleChange}/>
           </ModalLabel>
-          <StyledText>For privacy reasons, do not use your full name or email address</StyledText>
+          <StyledText>
+            <p>For privacy reasons, do not use your full name or email address</p>
+          </StyledText>
           <br/>
           <ModalLabel>Your email*
-            <ModalInput type='text' name='email' value={answer.email} onChange={handleChange}/>
+            <ModalInput
+              type='text'
+              name='email'
+              value={answer.email}
+              onChange={handleChange}/>
           </ModalLabel>
-          <StyledText>For authentication reasons, you will not be emailed</StyledText>
+          <StyledText>
+            <p>For authentication reasons, you will not be emailed</p>
+          </StyledText>
           <br/>
           <StyledButton onClick={handleClick}>Upload photos
           </StyledButton>
@@ -81,7 +111,7 @@ const AnswerModal = function({ product, question }) {
           <StyledInput type='submit' value='Submit'/>
         </ModalForm>
         {error && <p>{error}</p>}
-    </ModalContent>
+      </ModalContent>
     </ModalBackground>
   );
 }

@@ -23,25 +23,46 @@ export const ModalContent = styled.article`
   width: 70%;
 `;
 
+export const ExitModalArticle = styled.article`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+export const ExitModalBtn = styled.button`
+  width: 30px;
+  &:hover {
+    cursor: pointer;
+`;
+
 export const ModalForm = styled.form`
-display: flex;
-flex-direction: column;
-margin: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px;
 `;
 
 export const ModalLabel = styled.label`
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   text-align: right;
 `;
 
 export const ModalInput = styled.input`
   margin-left: 10px;
+  width: 55%;
 `;
 
-export const StyledText = styled.p`
-  align-self: center;
+export const ModalTextarea = styled.textarea`
+  margin-left: 10px;
+  width: 55%;
+`;
+
+export const StyledText = styled.article`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
 `;
 
 export const StyledInput = styled.input`

@@ -96,4 +96,15 @@ describe('Answer Modal Unit Testing', () => {
     fireEvent.click(await screen.findByText('Submit'));
     expect(await screen.findByText('Provided email address is not in correct email format')).toBeInTheDocument();
   });
+
+  test('Clicking X button closes Add Answer Modal', () => {
+    fireEvent.click(screen.getAllByText('Add Answer')[0]);
+    fireEvent.click(screen.getByText('X'));
+    expect(screen.queryByText('Submit your Answer')).toBeNull();
+    expect(screen.queryByText('Your Answer*')).toBeNull();
+    expect(screen.queryByText('What is your nickname?*')).toBeNull();
+    expect(screen.queryByText('Your email*')).toBeNull();
+    expect(screen.queryByText('Upload your photos')).toBeNull();
+    expect(screen.queryByText('Submit')).toBeNull();
+  });
 });
