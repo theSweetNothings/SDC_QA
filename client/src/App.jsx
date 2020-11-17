@@ -17,8 +17,8 @@ const App = function(props) {
   // Perform GET request on mount based off product id
   // useEffect works like ComponentDidMount when its second argument is an empty array
   useEffect(() => {
-    let isMounted = true; // Keep track of whether the component is mounted
-    const id = props.match.params.id; // React router provides id nested in props
+    let isMounted = true; //Keep track of whether component is mounted
+    const id = props.match.params.id; //React router provides id in props
     // Get questions from API & set state only if the component is still mounted
     axios.get(`http://52.26.193.201:3000/qa/${id}`)
       .then(response => {
