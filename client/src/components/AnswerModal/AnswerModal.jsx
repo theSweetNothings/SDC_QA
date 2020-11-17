@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
 
-const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotosModal }) {
+const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotosModal, handleClose }) {
   const [ answer, setAnswer ] = useState({
     body: '',
     name: '',
@@ -26,13 +26,6 @@ const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotos
         newAnswer[name] = value;
         return newAnswer;
       });
-    }
-  };
-
-  const handleClose = function(event) {
-    const name = event.target.getAttribute('name');
-    if (name === 'background' || name === 'close-btn') {
-      toggleAnswerForm(false);
     }
   };
 
