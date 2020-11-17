@@ -21,72 +21,69 @@ describe('Answer Modal Unit Testing', () => {
   });
 
   test('Clicking "Add Answer" causes Answer Modal to be rendered', () => {
-    screen.debug();
     fireEvent.click(screen.getAllByText('Add Answer')[0]);
-    screen.debug();
     expect(screen.getByText('Submit your Answer')).toBeInTheDocument();
     expect(screen.getByText('Your Answer*')).toBeInTheDocument();
     expect(screen.getByText('What is your nickname?*')).toBeInTheDocument();
     expect(screen.getByText('Your email*')).toBeInTheDocument();
     expect(screen.getByText('Upload your photos')).toBeInTheDocument();
     expect(screen.getByText('Submit')).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Example: jack543!')).toBeInTheDocument();
   });
-/*
-  test('Answer Modal requires an answer', () => {
-    fireEvent.click(screen.getByText('Add Answer'));
-    fireEvent.change(screen.getByLabelText('What is your nickname?*'), {
+
+  test('Answer Modal requires an answer', async () => {
+    fireEvent.click(screen.getAllByText('Add Answer')[0]);
+    fireEvent.change(await screen.findByLabelText('What is your nickname?*'), {
       target: { value: 'Han Solo'}
     });
-    fireEvent.change(screen.getByLabelText('Your Answer*'), {
+    fireEvent.change(await screen.findByLabelText('Your Answer*'), {
       target: { value: 'hsolo@agffa.net' }
     });
-    fireEvent.click(screen.getByText('Submit'));
+    fireEvent.click(await screen.findByText('Submit'));
     expect(screen.getByText('Please complete all mandatory fields')).toBeInTheDocument();
   });
 
-  test('Answer Modal requires a nickname', () => {
-    fireEvent.click(screen.getByText('Add Answer'));
-    fireEvent.change(screen.getByLabelText('What is your nickname?*'), {
+  test('Answer Modal requires a nickname', async () => {
+    fireEvent.click(screen.getAllByText('Add Answer')[0]);
+    fireEvent.change(await screen.findByLabelText('Your Answer*'), {
       target: { value: 'Han Solo'}
     });
-    fireEvent.change(screen.getByLabelText('Your Answer*'), {
+    fireEvent.change(await screen.findByLabelText('Your email*'), {
       target: { value: 'hsolo@agffa.net' }
     });
-    fireEvent.click(screen.getByText('Submit'));
+    fireEvent.click(await screen.findByText('Submit'));
     expect(screen.getByText('Please complete all mandatory fields')).toBeInTheDocument();
   });
 
-  test('Answer Modal requires an email address', () => {
-    fireEvent.click(screen.getByText('Add Answer'));
-    fireEvent.change(screen.getByLabelText('What is your nickname?*'), {
+  test('Answer Modal requires an email address', async () => {
+    fireEvent.click(screen.getAllByText('Add Answer')[0]);
+    fireEvent.change(await screen.findByLabelText('What is your nickname?*'), {
       target: { value: 'Han Solo'}
     });
-    fireEvent.change(screen.getByLabelText('Your Answer*'), {
+    fireEvent.change(await screen.findByLabelText('Your Answer*'), {
       target: { value: 'Han Solo' }
     });
-    fireEvent.click(screen.getByText('Submit'));
-    expect(screen.getByText('Please complete all mandatory fields')).toBeInTheDocument();
+    fireEvent.click(await screen.findByText('Submit'));
+    expect(await screen.findByText('Please complete all mandatory fields')).toBeInTheDocument();
   });
-/*
+
   test('Provided email address must be in correct email format', async () => {
-    fireEvent.click(screen.getByText('Add Answer'));
-    fireEvent.change(screen.getByLabelText('What is your nickname?*'), {
+    fireEvent.click(screen.getAllByText('Add Answer')[0]);
+    fireEvent.change(await screen.findByLabelText('What is your nickname?*'), {
       target: { value: 'Han Solo'}
     });
-    fireEvent.change(screen.getByLabelText('Your Answer*'), {
+    fireEvent.change(await screen.findByLabelText('Your Answer*'), {
       target: { value: 'Han Solo' }
     });
-    fireEvent.change(screen.getByLabelText('Your email*'), {
+    fireEvent.change(await screen.findByLabelText('Your email*'), {
       target: { value: 'hsolo@agffanet' }
     });
-    fireEvent.click(screen.getByText('Submit'));
-    expect(screen.getByText('Provided email address is not acceptable format')).toBeInTheDocument();
+    fireEvent.click(await screen.findByText('Submit'));
+    expect(await screen.findByText('Provided email address is not acceptable format')).toBeInTheDocument();
   });
 
   test('Provided email address must be in correct email format', async () => {
-    fireEvent.click(screen.getByText('Add Answer'));
+    fireEvent.click(screen.getAllByText('Add Answer')[0]);
     fireEvent.change(await screen.findByLabelText('Your Answer*'), {
       target: { value: 'Han Solo'}
     });
@@ -98,5 +95,5 @@ describe('Answer Modal Unit Testing', () => {
     });
     fireEvent.click(await screen.findByText('Submit'));
     expect(await screen.findByText('Provided email address is not acceptable format')).toBeInTheDocument();
-  });*/
+  });
 });
