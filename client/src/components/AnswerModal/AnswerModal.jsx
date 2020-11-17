@@ -59,10 +59,10 @@ const AnswerModal = function({ product, question }) {
         // Add post request here
         setError(null);
       } else {
-        setError('Provided email address is not acceptable format')
+        setError('Provided email address is not in correct email format')
       }
     } else {
-      setError('Please complete all mandatory fields');
+      setError('You must enter the following: answer, nickname, and email');
     }
   }
 
@@ -77,9 +77,11 @@ const AnswerModal = function({ product, question }) {
           </label>
           <label>What is your nickname?*
             <input placeholder='Example: jack543!' type='text' name='name' value={answer.name} onChange={handleChange}/>
+            <p>For privacy reasons, do not use your full name or email address</p>
           </label>
           <label>Your email*
             <input type='text' name='email' value={answer.email} onChange={handleChange}/>
+            <p>For authentication reasons, you will not be emailed</p>
           </label>
           <label>Upload your photos
             <input type='text' name='photos' value={answer.photos} onChange={handleChange}/>

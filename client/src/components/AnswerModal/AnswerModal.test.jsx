@@ -40,7 +40,7 @@ describe('Answer Modal Unit Testing', () => {
       target: { value: 'hsolo@agffa.net' }
     });
     fireEvent.click(await screen.findByText('Submit'));
-    expect(screen.getByText('Please complete all mandatory fields')).toBeInTheDocument();
+    expect(screen.getByText('You must enter the following: answer, nickname, and email')).toBeInTheDocument();
   });
 
   test('Answer Modal requires a nickname', async () => {
@@ -52,7 +52,7 @@ describe('Answer Modal Unit Testing', () => {
       target: { value: 'hsolo@agffa.net' }
     });
     fireEvent.click(await screen.findByText('Submit'));
-    expect(screen.getByText('Please complete all mandatory fields')).toBeInTheDocument();
+    expect(screen.getByText('You must enter the following: answer, nickname, and email')).toBeInTheDocument();
   });
 
   test('Answer Modal requires an email address', async () => {
@@ -64,7 +64,7 @@ describe('Answer Modal Unit Testing', () => {
       target: { value: 'Han Solo' }
     });
     fireEvent.click(await screen.findByText('Submit'));
-    expect(await screen.findByText('Please complete all mandatory fields')).toBeInTheDocument();
+    expect(await screen.findByText('You must enter the following: answer, nickname, and email')).toBeInTheDocument();
   });
 
   test('Provided email address must be in correct email format', async () => {
@@ -79,7 +79,7 @@ describe('Answer Modal Unit Testing', () => {
       target: { value: 'hsolo@agffanet' }
     });
     fireEvent.click(await screen.findByText('Submit'));
-    expect(await screen.findByText('Provided email address is not acceptable format')).toBeInTheDocument();
+    expect(await screen.findByText('Provided email address is not in correct email format')).toBeInTheDocument();
   });
 
   test('Provided email address must be in correct email format', async () => {
@@ -94,6 +94,6 @@ describe('Answer Modal Unit Testing', () => {
       target: { value: 'hsoloagffa.net' }
     });
     fireEvent.click(await screen.findByText('Submit'));
-    expect(await screen.findByText('Provided email address is not acceptable format')).toBeInTheDocument();
+    expect(await screen.findByText('Provided email address is not in correct email format')).toBeInTheDocument();
   });
 });
