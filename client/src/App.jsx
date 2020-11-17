@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from './components/SearchBar/SearchBar.jsx';
 import QuestionList from './components/QuestionList/QuestionList.jsx';
+import AnswerModal from './components/AnswerModal/AnswerModal.jsx';
 import styled from 'styled-components';
 
 const Container = styled.section`
@@ -12,7 +13,9 @@ const Container = styled.section`
 const App = function(props) {
   // State
   const [ questions, setQuestions ] = useState([]);
-  const [ productName, setProductName ] = useState(null);
+  const [ product, setProduct ] = useState(null);
+  const [ showAnswerModal, setShowAnswerModal ] = useState(false);
+  const [ clickedQuestion, setClickedQuestion ] = useState(null);
 
   // Perform GET request on mount based off product id
   // useEffect works like ComponentDidMount when its second argument is an empty array
@@ -33,7 +36,7 @@ const App = function(props) {
     axios.get(`http://52.26.193.201:3000/products/${id}`)
       .then(response => {
         if (isMounted) {
-          setProductName(response.data.results[0].name)
+          setProduct(response.data);
         }
       })
       .catch(error => console.log(error));
@@ -41,10 +44,16 @@ const App = function(props) {
     return () => { isMounted = false };
   }, []);
 
+  const toggleAnswerForm = function(bool, query) {
+    setShowAnswerModal(bool);
+    // setClickedQuestion(query);
+  }
+
   return (
     <Container>
       <SearchBar/>
-      {questions && <QuestionList questions={questions} product={productName}/>}
+      {questions && <QuestionList questions={questions} product={product} toggleAnswerForm={toggleAnswerForm}/>}
+      {showAnswerModal && <AnswerModal />}
     </Container>
   );
 };

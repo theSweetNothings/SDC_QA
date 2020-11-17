@@ -11,9 +11,9 @@ describe('Answer Modal Unit Testing', () => {
   test('Answer Modal is not rendered before "Add Answer" is clicked', () => {
     expect(screen.querybyText('Submit your Answer')).toBeNull();
     expect(screen.queryByRole('textbox')).toBeNull();
-    expect(screen.getByText('Your Answer')).toBeNull();
-    expect(screen.getByText('What is your nickname?')).toBeNull();
-    expect(screen.getByText('Your email')).toBeNull();
+    expect(screen.getByText('Your Answer*')).toBeNull();
+    expect(screen.getByText('What is your nickname?*')).toBeNull();
+    expect(screen.getByText('Your email*')).toBeNull();
     expect(screen.getByText('Upload your photos')).toBeNull();
     expect(screen.getByText('Submit')).toBeNull();
   });

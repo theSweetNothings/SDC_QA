@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
 import Question from '../Question/Question.jsx';
-import AnswerModal from '../AnswerModal/AnswerModal.jsx';
 
 const Container = styled.section`
   display: flex;
@@ -19,6 +18,7 @@ const Section = styled.section`
 `;
 
 const QuestionList = function(props) {
+
   return (
     <Container>
       {// Sort questions in desc order by helpfulness & render a Question component for each sorted question
@@ -29,7 +29,9 @@ const QuestionList = function(props) {
             <Question
               question={question.question_body}
               helpful={question.question_helpfulness}
-              product={props.product}/>
+              product={props.product}
+              toggleAnswerForm={props.toggleAnswerForm}
+            />
             <AnswerList answers={Object.values(question.answers)}/>
           </Section>
         ))
