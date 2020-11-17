@@ -24,7 +24,7 @@ const QuestionList = function(props) {
 
   const toggleAnswerForm = function(bool, query) {
     setShowAnswerModal(bool);
-    // setClickedQuestion(query);
+    setClickedQuestion(query);
   };
 
   return (
@@ -44,7 +44,7 @@ const QuestionList = function(props) {
           </Section>
         ))
       }
-      {showAnswerModal && <AnswerModal />}
+      {showAnswerModal && <AnswerModal product={props.product} question={clickedQuestion}/>}
     </Container>
   );
 }

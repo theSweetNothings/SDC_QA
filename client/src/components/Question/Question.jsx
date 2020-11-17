@@ -29,18 +29,18 @@ const StyledText = styled.p`
   }
 `;
 
-const Question = function(props) {
+const Question = function({ helpful, question, product, toggleAnswerForm }) {
   const handleClick = function(event) {
-    props.toggleAnswerForm(true);
+    toggleAnswerForm(true, question);
   }
 
   return (
     <Container>
       <StyledQuestion>
-        <p>Q: {props.question}</p>
+        <p>Q: {question}</p>
       </StyledQuestion>
       <HelpfulAndAddAnswer>
-        <Helpful helpful={props.helpful}/>
+        <Helpful helpful={helpful}/>
         <p>|</p>
         <StyledText onClick={handleClick}><u>Add Answer</u></StyledText>
       </HelpfulAndAddAnswer>

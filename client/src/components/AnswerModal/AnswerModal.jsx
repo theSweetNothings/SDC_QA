@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const AnswerModal = function(props) {
-  /*
+const AnswerModal = function({ product, question }) {
   const ModalBackground = styled.section`
     background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
@@ -26,13 +25,13 @@ const AnswerModal = function(props) {
     flex-direction: column;
   `;
 
-  const [ answer, setAnswer ] = {
+  const [ answer, setAnswer ] = useState({
     body: '',
     name: '',
     email: '',
     photos: []
-  }*/
-/*
+  });
+
   const handleChange = function(event) {
     const { name, value } = event.target;
     if (name === 'photos') {
@@ -49,12 +48,12 @@ const AnswerModal = function(props) {
   const handleSubmit = function(event) {
     event.preventDefault();
   }
-*/
-  return (/*
+
+  return (
     <ModalBackground>
       <ModalContent>
         <h2>Submit your Answer</h2>
-        <h3>{product.name}: {question}</h3>
+       <h3>{product.name}: {question}</h3>
         <ModalForm onSubmit={handleSubmit}>
           <label>Your Answer*
             <input type='text' name='body' value={answer.body} onChange={handleChange}/>
@@ -71,8 +70,8 @@ const AnswerModal = function(props) {
           <input type='submit' value='Submit'/>
         </ModalForm>
       </ModalContent>
-    </ModalBackground>*/
-    <div>Your mom</div>
+      <div>your mom</div>
+    </ModalBackground>
   );
 }
 
