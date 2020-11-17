@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
 import Question from '../Question/Question.jsx';
+import AnswerModal from '../AnswerModal/AnswerModal.jsx';
 
 const Container = styled.section`
   display: flex;
@@ -18,6 +19,13 @@ const Section = styled.section`
 `;
 
 const QuestionList = function(props) {
+  const [ showAnswerModal, setShowAnswerModal ] = useState(false);
+  const [ clickedQuestion, setClickedQuestion ] = useState(null);
+
+  const toggleAnswerForm = function(bool, query) {
+    setShowAnswerModal(bool);
+    // setClickedQuestion(query);
+  };
 
   return (
     <Container>
@@ -30,12 +38,13 @@ const QuestionList = function(props) {
               question={question.question_body}
               helpful={question.question_helpfulness}
               product={props.product}
-              toggleAnswerForm={props.toggleAnswerForm}
+              toggleAnswerForm={toggleAnswerForm}
             />
             <AnswerList answers={Object.values(question.answers)}/>
           </Section>
         ))
       }
+      {showAnswerModal && <AnswerModal />}
     </Container>
   );
 }
