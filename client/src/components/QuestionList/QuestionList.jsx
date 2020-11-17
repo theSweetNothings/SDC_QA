@@ -35,8 +35,7 @@ const QuestionList = function(props) {
         .map(question => (
           <Section key={question.question_id}>
             <Question
-              question={question.question_body}
-              helpful={question.question_helpfulness}
+              question={question}
               product={props.product}
               toggleAnswerForm={toggleAnswerForm}
             />

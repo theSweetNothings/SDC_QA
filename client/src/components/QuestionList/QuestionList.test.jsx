@@ -8,7 +8,7 @@ import { questions } from './dummyQuestions.js';
 
 describe('QuestionList Unit & Integration Testing', () => {
   // Mount questionlist before each test and unmount it afterwards
-  beforeEach(() => render(<QuestionList questions={questions}/>));
+  beforeEach(() => render(<QuestionList questions={questions} product={{ name: 'Star Wars' }}/>));
   afterEach(cleanup);
 
   test('Renders question list to the screen', () => {

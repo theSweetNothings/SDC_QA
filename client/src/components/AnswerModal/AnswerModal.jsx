@@ -70,19 +70,19 @@ const AnswerModal = function({ product, question }) {
     <ModalBackground>
       <ModalContent>
         <h2>Submit your Answer</h2>
-       <h3>{product.name}: {question}</h3>
+       <h3>{product.name}: {question.question_body}</h3>
         <ModalForm onSubmit={handleSubmit}>
           <label>Your Answer*
             <input type='text' name='body' value={answer.body} onChange={handleChange}/>
           </label>
           <label>What is your nickname?*
             <input placeholder='Example: jack543!' type='text' name='name' value={answer.name} onChange={handleChange}/>
-            <p>For privacy reasons, do not use your full name or email address</p>
           </label>
+          <p>For privacy reasons, do not use your full name or email address</p>
           <label>Your email*
             <input type='text' name='email' value={answer.email} onChange={handleChange}/>
-            <p>For authentication reasons, you will not be emailed</p>
           </label>
+          <p>For authentication reasons, you will not be emailed</p>
           <label>Upload your photos
             <input type='text' name='photos' value={answer.photos} onChange={handleChange}/>
           </label>
