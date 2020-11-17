@@ -23,16 +23,26 @@ const HelpfulAndAddAnswer = styled.article`
   min-width: 200px;
 `;
 
-const Question = function(props) {
+const StyledText = styled.p`
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const Question = function({ question, product, toggleAnswerForm }) {
+  const handleClick = function(event) {
+    toggleAnswerForm(true, question);
+}
+
   return (
     <Container>
       <StyledQuestion>
-        <p>Q: {props.question}</p>
+        <p>Q: {question.question_body}</p>
       </StyledQuestion>
       <HelpfulAndAddAnswer>
-        <Helpful helpful={props.helpful}/>
+        <Helpful helpful={question.question_helpfulness}/>
         <p>|</p>
-        <p><u>Add Answer</u></p>
+        <StyledText onClick={handleClick}><u>Add Answer</u></StyledText>
       </HelpfulAndAddAnswer>
     </Container>
   );

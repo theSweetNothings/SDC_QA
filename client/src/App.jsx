@@ -11,21 +11,27 @@ const Container = styled.section`
 
 const App = function(props) {
   // State
-  const [questions, setQuestions] = useState([]);
+  const [ questions, setQuestions ] = useState([]);
+  const [ product, setProduct ] = useState(null);
 
   // Perform GET request on mount based off product id
   // useEffect works like ComponentDidMount when its second argument is an empty array
   useEffect(() => {
-    // This var keeps track of whether the component is mounted
-    let isMounted = true;
-    // Grab id from the url; React-router passes it nested in props
-    const id = props.match.params.id;
-    // Get questions from API
+    let isMounted = true; //Keep track of whether component is mounted
+    const id = props.match.params.id; //React router provides id in props
+    // Get questions from API & set state only if the component is still mounted
     axios.get(`http://52.26.193.201:3000/qa/${id}`)
       .then(response => {
-        // Set state only if the component is still mounted
         if (isMounted) {
           setQuestions(response.data.results)
+        }
+      })
+      .catch(error => console.log(error));
+    // Get product name from API & set state only if the component is still mounted
+    axios.get(`http://52.26.193.201:3000/products/${id}`)
+      .then(response => {
+        if (isMounted) {
+          setProduct(response.data);
         }
       })
       .catch(error => console.log(error));
@@ -36,7 +42,7 @@ const App = function(props) {
   return (
     <Container>
       <SearchBar/>
-      {questions && <QuestionList questions={questions}/>}
+      {questions && <QuestionList questions={questions} product={product}/>}
     </Container>
   );
 };
