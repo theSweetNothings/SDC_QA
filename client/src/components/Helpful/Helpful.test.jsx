@@ -10,6 +10,7 @@ describe('Helpful Unit Testing', () => {
 
   test('Renders Helpful component to page with props passed to Yes', () => {
     expect(screen.getByText('Helpful?')).toBeInTheDocument();
-    expect(screen.getByText('Yes (25)')).toBeInTheDocument();
+    expect(screen.getByText('Yes')).toBeInTheDocument();
+    expect(screen.getByText('(25)')).toBeInTheDocument();
   });
 });

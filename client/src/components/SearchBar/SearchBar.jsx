@@ -21,8 +21,10 @@ const StyledInput = styled.input`
 `;
 
 const SearchBar = function() {
+  // State
   const [ searched, setSearched ] = useState('');
 
+  // Event handler for updating searched
   const handleChange = function(event) {
     const { value } = event.target;
     setSearched(value);
