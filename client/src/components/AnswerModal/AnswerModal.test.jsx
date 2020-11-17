@@ -26,7 +26,7 @@ describe('Answer Modal Unit Testing', () => {
     expect(screen.getByText('Your Answer*')).toBeInTheDocument();
     expect(screen.getByText('What is your nickname?*')).toBeInTheDocument();
     expect(screen.getByText('Your email*')).toBeInTheDocument();
-    expect(screen.getByText('Upload your photos')).toBeInTheDocument();
+    expect(screen.getByText('Upload photos')).toBeInTheDocument();
     expect(screen.getByText('Submit')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Example: jack543!')).toBeInTheDocument();
   });

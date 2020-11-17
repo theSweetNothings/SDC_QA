@@ -1,0 +1,61 @@
+import styled from 'styled-components';
+
+export const ModalBackground = styled.section`
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+`;
+
+export const ModalContent = styled.article`
+  align-items: center;
+  background-color: steelblue;
+  border-radius: 10px;
+  color: seashell;
+  display: flex;
+  flex-direction: column;
+  margin: 5% auto;
+  padding: 20px;
+  width: 70%;
+`;
+
+export const ModalForm = styled.form`
+display: flex;
+flex-direction: column;
+margin: 20px;
+`;
+
+export const ModalLabel = styled.label`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+`;
+
+export const ModalInput = styled.input`
+  margin-left: 10px;
+`;
+
+export const StyledText = styled.p`
+  align-self: center;
+`;
+
+export const StyledInput = styled.input`
+  align-self: center;
+  border-radius: 10px;
+  width: 75px;
+  &:hover {
+    cursor: pointer;
+`;
+
+export const StyledButton = styled.button`
+  align-self: center;
+  border-radius: 10px;
+  width: 75px;
+  &:hover {
+    cursor: pointer;
+`;
