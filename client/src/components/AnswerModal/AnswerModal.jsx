@@ -17,6 +17,14 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
     setShowPhotosModal(bool);
   };
 
+  const handleUpload = function(picture) {
+    setAnswer(prev => {
+      let updated = Object.assign({}, prev);
+      updated.photos.push(picture);
+      return updated;
+    });
+  };
+
   const handleChange = function(event) {
     const { name, value } = event.target;
     if (name === 'photos') {
@@ -112,7 +120,7 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
           {error && <p>{error}</p>}
         </ModalContent>
       </ModalBackground>
-      {showPhotosModal && <PhotosModal />}
+      {showPhotosModal && <PhotosModal handleClose={handleClose} handleUpload={handleUpload}/>}
     </>
   );
 }

@@ -54,7 +54,6 @@ const QuestionList = function(props) {
         product={props.product}
         question={clickedQuestion}
         toggleAnswerForm={toggleAnswerForm}
-        togglePhotosModal={togglePhotosModal}
       />}
     </Container>
   );
