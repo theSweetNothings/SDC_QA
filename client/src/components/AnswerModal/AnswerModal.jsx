@@ -8,6 +8,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
     { body: '', name: '', email: '', photos: null });
   const [ error, setError ] = useState(null);
 
+  // Updates state with uploaded photos
   const handleUpload = function(pictures) {
     setAnswer(prev => {
       let updated = Object.assign({}, prev);
@@ -19,19 +20,11 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
 
   const handleChange = function(event) {
     const { name, value } = event.target;
-    if (name === 'photos') {
-      setAnswer(prev => {
-        let newAnswer = Object.assign({}, prev);
-        newAnswer.photos.push(value);
-        return newAnswer;
-      });
-    } else {
-      setAnswer(prev => {
-        let newAnswer = Object.assign({}, prev);
-        newAnswer[name] = value;
-        return newAnswer;
-      });
-    }
+    setAnswer(prev => {
+      let newAnswer = Object.assign({}, prev);
+      newAnswer[name] = value;
+      return newAnswer;
+    });
   };
 
   const handleClick = function(event) {
