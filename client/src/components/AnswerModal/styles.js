@@ -71,6 +71,7 @@ export const StyledInput = styled.input`
   width: 75px;
   &:hover {
     cursor: pointer;
+  }
 `;
 
 export const StyledButton = styled.button`
@@ -79,6 +80,7 @@ export const StyledButton = styled.button`
   width: 75px;
   &:hover {
     cursor: pointer;
+  }
 `;
 
 export const Thumbnails = styled.section`

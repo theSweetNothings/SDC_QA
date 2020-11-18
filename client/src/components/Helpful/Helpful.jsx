@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { Underscore } from '../AnswerModal/styles.js';
 
 const Article = styled.article`
   display: flex;
-`;
-
-const Underscore = styled.u`
-  &:hover {
-    cursor: pointer;
 `;
 
 const Helpful = function(props) {
