@@ -20,17 +20,23 @@ const Section = styled.section`
 
 const QuestionList = function(props) {
   const [ showAnswerModal, setShowAnswerModal ] = useState(false);
-  const [ clickedQuestion, setClickedQuestion ] = useState(null);
+  const [ clickedQuestion, setClickedQuestion ] = useState(null);const [ showPhotosModal, setShowPhotosModal ] = useState(false);
 
   const toggleAnswerForm = function(bool, query) {
     setShowAnswerModal(bool);
     query && setClickedQuestion(query);
   };
 
+  const togglePhotosModal = function(bool) {
+    setShowPhotosModal(bool);
+  };
+
   const handleClose = function(event) {
     const name = event.target.getAttribute('name');
-    if (name === 'background' || name === 'close-btn') {
+    if (name === 'answer-background' || name === 'answer-close-btn') {
       toggleAnswerForm(false);
+    } else if (name === 'photos-background' || name === 'photos-close-btn') {
+      togglePhotosModal(false);
     }
   };
 
@@ -53,7 +59,10 @@ const QuestionList = function(props) {
       {showAnswerModal && <AnswerModal
         product={props.product}
         question={clickedQuestion}
+        showPhotosModal={showPhotosModal}
         toggleAnswerForm={toggleAnswerForm}
+        togglePhotosModal={togglePhotosModal}
+        handleClose={handleClose}
       />}
     </Container>
   );

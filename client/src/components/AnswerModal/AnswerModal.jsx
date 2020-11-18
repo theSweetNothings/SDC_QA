@@ -3,19 +3,10 @@ import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
 import PhotosModal from '../PhotosModal/PhotosModal.jsx';
 
-const AnswerModal = function({ product, question, toggleAnswerForm, handleClose }) {
-  const [ answer, setAnswer ] = useState({
-    body: '',
-    name: '',
-    email: '',
-    photos: null
-  });
+const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerForm, togglePhotosModal, handleClose }) {
+  const [ answer, setAnswer ] = useState(
+    { body: '', name: '', email: '', photos: null });
   const [ error, setError ] = useState(null);
-  const [ showPhotosModal, setShowPhotosModal ] = useState(false);
-
-  const togglePhotosModal = function(bool) {
-    setShowPhotosModal(bool);
-  };
 
   const handleUpload = function(pictures) {
     setAnswer(prev => {
@@ -58,7 +49,8 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
         const body = {
           "body": answer.body,
           "name": answer.name,
-          "email": answer.email
+          "email": answer.email,
+          "photos": answer.photos
         }
         axios.post(`http://52.26.193.201:3000/qa/${question.question_id}/answers`, body)
           .then(response => console.log(response))
@@ -74,10 +66,10 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
 
   return (
     <>
-      <ModalBackground onClick={handleClose} name='background'>
+      <ModalBackground onClick={handleClose} name='answer-background'>
         <ModalContent>
           <ExitModalArticle>
-            <ExitModalBtn onClick={handleClose} name='close-btn'>X</ExitModalBtn>
+            <ExitModalBtn onClick={handleClose} name='answer-close-btn'>X</ExitModalBtn>
           </ExitModalArticle>
           <h2>Submit your Answer</h2>
           <h3>{product.name}:  {question.question_body}</h3>
