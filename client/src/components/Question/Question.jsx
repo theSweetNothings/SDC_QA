@@ -29,10 +29,10 @@ const StyledText = styled.p`
   }
 `;
 
-const Question = function({ question, product, toggleAnswerForm }) {
+const Question = function({ question, product, toggleAnswerForm, updateHelp }) {
   const handleClick = function(event) {
     toggleAnswerForm(true, question);
-}
+  };
 
   return (
     <Container>
@@ -40,7 +40,11 @@ const Question = function({ question, product, toggleAnswerForm }) {
         <p>Q: {question.question_body}</p>
       </StyledQuestion>
       <HelpfulAndAddAnswer>
-        <Helpful helpful={question.question_helpfulness}/>
+        <Helpful
+          question={question.question_id}
+          helpful={question.question_helpfulness}
+          updateHelp={updateHelp}
+        />
         <p>|</p>
         <StyledText onClick={handleClick}><u>Add Answer</u></StyledText>
       </HelpfulAndAddAnswer>

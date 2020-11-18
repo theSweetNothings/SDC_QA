@@ -8,7 +8,11 @@ const AnswerList = function(props) {
       props.answers
         .sort((a,b) => b.helpfulness - a.helpfulness)
         .map(answer => (
-          <Answer key={answer.id} answer={answer}/>
+          <Answer
+            key={answer.id}
+            answer={answer}
+            updateHelp={props.updateHelp}
+          />
         ))
       }
     </section>

@@ -1,7 +1,9 @@
 import React from 'react';
 import dateFormat from 'dateformat';
+import { v4 as uuidv4 } from 'uuid';
 import Helpful from '../Helpful/Helpful.jsx';
 import styled from 'styled-components';
+import { Thumbnails, Image } from '../AnswerModal/styles.js';
 
 const Container = styled.section`
   font-size: 12px;
@@ -36,10 +38,17 @@ const Answer = function(props) {
       <StyledAnswer>
         <p><strong style={{ fontSize: '16px'}}>A: </strong> {props.answer.body}</p>
       </StyledAnswer>
+      <Thumbnails>
+        {props.answer.photos && props.answer.photos.map(photo => <Image src={photo}/>)}
+      </Thumbnails>
       <AnswerMetadata>
         <p>by {props.answer.answerer_name}, {transformDate(props.answer.date)}</p>
         |
-        <Helpful helpful={props.answer.helpfulness}/>
+        <Helpful
+          answer={props.answer.id}
+          helpful={props.answer.helpfulness}
+          updateHelp={props.updateHelp}
+        />
         |
         <p><u>Report</u></p>
       </AnswerMetadata>

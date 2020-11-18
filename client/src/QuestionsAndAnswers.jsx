@@ -13,12 +13,13 @@ const QuestionsAndAnswers = function(props) {
   // State
   const [ questions, setQuestions ] = useState([]);
   const [ product, setProduct ] = useState(null);
+  const [ helpCount, setHelpCount ] = useState(0);
 
   // Perform GET request on mount based off product id
-  // useEffect works like ComponentDidMount when its second argument is an empty array
+  // Perform GET request again when helpCount updates
   useEffect(() => {
-    let isMounted = true; //Keep track of whether component is mounted
-    const id = props.match.params.id; //React router provides id in props
+    let isMounted = true; // Keep track of whether component is mounted
+    const id = props.match.params.id; // React router provides id in props
     // Get questions from API & set state only if the component is still mounted
     axios.get(`http://52.26.193.201:3000/qa/${id}`)
       .then(response => {
@@ -37,12 +38,19 @@ const QuestionsAndAnswers = function(props) {
       .catch(error => console.log(error));
     // This callback fires when the component unmounts to prevent attempts at changing state after the component unmounts
     return () => { isMounted = false };
-  }, []);
+  }, [helpCount]);
+
+  const updateHelp = function() {
+    setHelpCount(prev => prev + 1);
+  };
 
   return (
     <Container>
       <SearchBar/>
-      {questions && <QuestionList questions={questions} product={product}/>}
+      {questions && <QuestionList
+        questions={questions}
+        product={product}
+        updateHelp={updateHelp}/>}
     </Container>
   );
 };

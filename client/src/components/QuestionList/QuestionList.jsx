@@ -51,8 +51,12 @@ const QuestionList = function(props) {
               question={question}
               product={props.product}
               toggleAnswerForm={toggleAnswerForm}
+              updateHelp={props.updateHelp}
             />
-            <AnswerList answers={Object.values(question.answers)}/>
+            <AnswerList
+              answers={Object.values(question.answers)}
+              updateHelp={props.updateHelp}
+            />
           </Section>
         ))
       }
