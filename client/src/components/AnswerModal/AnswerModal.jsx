@@ -15,7 +15,8 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
       updated.photos = pictures;
       return updated;
     });
-    setShowPhotosModal(false);
+    console.log(pictures);
+    togglePhotosModal(false);
   };
 
   const handleChange = function(event) {
@@ -59,7 +60,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
 
   return (
     <>
-      <ModalBackground onClick={handleClose} name='answer-background'>
+      <ModalBackground onClick={handleClose}             name='answer-background'>
         <ModalContent>
           <ExitModalArticle>
             <ExitModalBtn onClick={handleClose} name='answer-close-btn'>X</ExitModalBtn>
