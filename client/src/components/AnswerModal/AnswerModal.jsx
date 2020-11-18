@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
 
@@ -10,7 +10,6 @@ const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotos
     photos: []
   });
   const [ error, setError ] = useState(null);
-  const background = useRef('background');
 
   const handleChange = function(event) {
     const { name, value } = event.target;
