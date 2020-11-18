@@ -19,8 +19,8 @@ const StyledAnswer = styled.article`
 const AnswerMetadata = styled.article`
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
-  width: 300px;
+  justify-content: space-around;
+  width: 40%;
 `;
 
 const Answer = function(props) {
@@ -43,13 +43,13 @@ const Answer = function(props) {
       </Thumbnails>
       <AnswerMetadata>
         <p>by {props.answer.answerer_name}, {transformDate(props.answer.date)}</p>
-        |
+        <p>|</p>
         <Helpful
           answer={props.answer.id}
           helpful={props.answer.helpfulness}
           updateHelp={props.updateHelp}
         />
-        |
+        <p>|</p>
         <p><u>Report</u></p>
       </AnswerMetadata>
     </Container>

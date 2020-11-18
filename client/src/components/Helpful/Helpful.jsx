@@ -33,6 +33,7 @@ const Helpful = function(props) {
       <p>
         { clicked ? <u>Yes</u> :
           <Underscore onClick={handleClick}>Yes</Underscore>}
+          &nbsp;
         ({props.helpful})
       </p>
     </Article>
