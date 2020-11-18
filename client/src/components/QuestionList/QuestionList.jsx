@@ -4,7 +4,6 @@ import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
 import Question from '../Question/Question.jsx';
 import AnswerModal from '../AnswerModal/AnswerModal.jsx';
-import PhotosModal from '../PhotosModal/PhotosModal.jsx';
 
 const Container = styled.section`
   display: flex;
@@ -22,16 +21,11 @@ const Section = styled.section`
 const QuestionList = function(props) {
   const [ showAnswerModal, setShowAnswerModal ] = useState(false);
   const [ clickedQuestion, setClickedQuestion ] = useState(null);
-  const [ showPhotosModal, setShowPhotosModal ] = useState(false);
 
   const toggleAnswerForm = function(bool, query) {
     setShowAnswerModal(bool);
     query && setClickedQuestion(query);
   };
-
-  const togglePhotosModal = function(bool) {
-    setShowPhotosModal(bool);
-  }
 
   const handleClose = function(event) {
     const name = event.target.getAttribute('name');
@@ -62,7 +56,6 @@ const QuestionList = function(props) {
         toggleAnswerForm={toggleAnswerForm}
         togglePhotosModal={togglePhotosModal}
       />}
-      {showPhotosModal && <PhotosModal />}
     </Container>
   );
 }

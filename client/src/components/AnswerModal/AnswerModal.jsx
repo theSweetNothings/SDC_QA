@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
+import PhotosModal from '../PhotosModal/PhotosModal.jsx';
 
-const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotosModal, handleClose }) {
+const AnswerModal = function({ product, question, toggleAnswerForm, handleClose }) {
   const [ answer, setAnswer ] = useState({
     body: '',
     name: '',
@@ -10,6 +11,11 @@ const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotos
     photos: []
   });
   const [ error, setError ] = useState(null);
+  const [ showPhotosModal, setShowPhotosModal ] = useState(false);
+
+  const togglePhotosModal = function(bool) {
+    setShowPhotosModal(bool);
+  };
 
   const handleChange = function(event) {
     const { name, value } = event.target;
@@ -58,53 +64,56 @@ const AnswerModal = function({ product, question, toggleAnswerForm, togglePhotos
   };
 
   return (
-    <ModalBackground onClick={handleClose} name='background'>
-      <ModalContent>
-        <ExitModalArticle>
-          <ExitModalBtn onClick={handleClose} name='close-btn'>X</ExitModalBtn>
-        </ExitModalArticle>
-        <h2>Submit your Answer</h2>
-        <h3>{product.name}:  {question.question_body}</h3>
-        <ModalForm onSubmit={handleSubmit}>
-          <ModalLabel>Your Answer*
-            <ModalTextarea
-              type='text'
-              name='body'
-              value={answer.body}
-              onChange={handleChange}/>
-          </ModalLabel>
-          <br/>
-          <ModalLabel>What is your nickname?*
-            <ModalInput
-              placeholder='Example: jack543!'
-              type='text'
-              name='name'
-              value={answer.name}
-              onChange={handleChange}/>
-          </ModalLabel>
-          <StyledText>
-            <p>For privacy reasons, do not use your full name or email address</p>
-          </StyledText>
-          <br/>
-          <ModalLabel>Your email*
-            <ModalInput
-              type='text'
-              name='email'
-              value={answer.email}
-              onChange={handleChange}/>
-          </ModalLabel>
-          <StyledText>
-            <p>For authentication reasons, you will not be emailed</p>
-          </StyledText>
-          <br/>
-          <StyledButton onClick={handleClick}>Upload photos
-          </StyledButton>
-          <br/>
-          <StyledInput type='submit' value='Submit'/>
-        </ModalForm>
-        {error && <p>{error}</p>}
-      </ModalContent>
-    </ModalBackground>
+    <>
+      <ModalBackground onClick={handleClose} name='background'>
+        <ModalContent>
+          <ExitModalArticle>
+            <ExitModalBtn onClick={handleClose} name='close-btn'>X</ExitModalBtn>
+          </ExitModalArticle>
+          <h2>Submit your Answer</h2>
+          <h3>{product.name}:  {question.question_body}</h3>
+          <ModalForm onSubmit={handleSubmit}>
+            <ModalLabel>Your Answer*
+              <ModalTextarea
+                type='text'
+                name='body'
+                value={answer.body}
+                onChange={handleChange}/>
+            </ModalLabel>
+            <br/>
+            <ModalLabel>What is your nickname?*
+              <ModalInput
+                placeholder='Example: jack543!'
+                type='text'
+                name='name'
+                value={answer.name}
+                onChange={handleChange}/>
+            </ModalLabel>
+            <StyledText>
+              <p>For privacy reasons, do not use your full name or email address</p>
+            </StyledText>
+            <br/>
+            <ModalLabel>Your email*
+              <ModalInput
+                type='text'
+                name='email'
+                value={answer.email}
+                onChange={handleChange}/>
+            </ModalLabel>
+            <StyledText>
+              <p>For authentication reasons, you will not be emailed</p>
+            </StyledText>
+            <br/>
+            <StyledButton onClick={handleClick}>Upload photos
+            </StyledButton>
+            <br/>
+            <StyledInput type='submit' value='Submit'/>
+          </ModalForm>
+          {error && <p>{error}</p>}
+        </ModalContent>
+      </ModalBackground>
+      {showPhotosModal && <PhotosModal />}
+    </>
   );
 }
 
