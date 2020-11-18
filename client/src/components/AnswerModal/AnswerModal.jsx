@@ -23,6 +23,7 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
       updated.photos = pictures;
       return updated;
     });
+    setShowPhotosModal(false);
   };
 
   const handleChange = function(event) {

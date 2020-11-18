@@ -9,7 +9,7 @@ const Container = styled.section`
   margin-top: 10px;
 `;
 
-const App = function(props) {
+const QuestionsAndAnswers = function(props) {
   // State
   const [ questions, setQuestions ] = useState([]);
   const [ product, setProduct ] = useState(null);
@@ -47,4 +47,4 @@ const App = function(props) {
   );
 };
 
-export default App;
+export default QuestionsAndAnswers;
