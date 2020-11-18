@@ -10,12 +10,19 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
 
   // Updates state with uploaded photos
   const handleUpload = function(pictures) {
+    /*
+    let fdPictures = pictures.map(pic => {
+      let fd = new FormData();
+      fd.append('image', pic);
+      console.log(fd);
+      return fd;
+    });*/
+
     setAnswer(prev => {
       let updated = Object.assign({}, prev);
       updated.photos = pictures;
       return updated;
     });
-    console.log(pictures);
     togglePhotosModal(false);
   };
 
@@ -49,6 +56,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
         axios.post(`http://52.26.193.201:3000/qa/${question.question_id}/answers`, body)
           .then(response => console.log(response))
           .then(() => setError(null))
+          .then(() => toggleAnswerForm(false))
           .catch(error => console.log(error));
       } else {
         setError('Provided email address is not in correct email format')
