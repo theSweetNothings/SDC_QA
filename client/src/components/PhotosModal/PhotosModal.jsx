@@ -1,25 +1,11 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from '../AnswerModal/styles.js';
+import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText, Thumbnails, Image } from '../AnswerModal/styles.js';
 
 const FileInput = styled.input`
   align-self: center;
   width: 60%;
-`;
-
-const Thumbnails = styled.section`
-  display: flex;
-  justifiy-content: center;
-  margin: 10px 0px;
-`;
-
-const Image = styled.img`
-  border: 1px solid seashell;
-  border-radius: 5px;
-  height: 50px;
-  margin: 5px;
-  width: 50px;
 `;
 
 const PhotosModal = function({ handleClose, handleUpload }) {
