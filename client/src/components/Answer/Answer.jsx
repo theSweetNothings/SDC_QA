@@ -2,6 +2,7 @@ import React from 'react';
 import dateFormat from 'dateformat';
 import { v4 as uuidv4 } from 'uuid';
 import Helpful from '../Helpful/Helpful.jsx';
+import Report from '../Report/Report.jsx';
 import styled from 'styled-components';
 import { Thumbnails, Image } from '../AnswerModal/styles.js';
 
@@ -20,7 +21,7 @@ const AnswerMetadata = styled.article`
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
-  width: 40%;
+  width: 350px;
 `;
 
 const Answer = function(props) {
@@ -50,7 +51,7 @@ const Answer = function(props) {
           updateHelp={props.updateHelp}
         />
         <p>|</p>
-        <p><u>Report</u></p>
+        <Report answer={props.answer.id}/>
       </AnswerMetadata>
     </Container>
   );

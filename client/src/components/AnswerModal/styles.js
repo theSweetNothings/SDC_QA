@@ -94,3 +94,8 @@ export const Image = styled.img`
   margin: 5px;
   width: 50px;
 `;
+
+export const Underscore = styled.u`
+  &:hover {
+    cursor: pointer;
+`;
