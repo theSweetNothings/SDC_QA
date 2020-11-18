@@ -8,7 +8,7 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
     body: '',
     name: '',
     email: '',
-    photos: []
+    photos: null
   });
   const [ error, setError ] = useState(null);
   const [ showPhotosModal, setShowPhotosModal ] = useState(false);
@@ -17,10 +17,10 @@ const AnswerModal = function({ product, question, toggleAnswerForm, handleClose 
     setShowPhotosModal(bool);
   };
 
-  const handleUpload = function(picture) {
+  const handleUpload = function(pictures) {
     setAnswer(prev => {
       let updated = Object.assign({}, prev);
-      updated.photos.push(picture);
+      updated.photos = pictures;
       return updated;
     });
   };
