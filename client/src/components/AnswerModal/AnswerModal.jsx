@@ -56,8 +56,8 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
         axios.post(`http://52.26.193.201:3000/qa/${question.question_id}/answers`, body)
           .then(response => console.log(response))
           .then(() => setError(null))
-          .then(() => toggleAnswerForm(false))
           .catch(error => console.log(error));
+        toggleAnswerForm(false);
       } else {
         setError('Provided email address is not in correct email format')
       }
