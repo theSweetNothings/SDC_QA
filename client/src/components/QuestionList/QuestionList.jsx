@@ -6,6 +6,7 @@ import Question from '../Question/Question.jsx';
 import MoreQuestions from '../MoreQuestions/MoreQuestions.jsx';
 import AddQuestion from '../AddQuestion/AddQuestion.jsx';
 import AnswerModal from '../AnswerModal/AnswerModal.jsx';
+import QuestionModal from '../QuestionModal/QuestionModal.jsx';
 
 const Container = styled.section`
   display: flex;
@@ -29,11 +30,13 @@ const MoreQuestionBoxes = styled.section`
 
 const QuestionList = function(props) {
   const [ showAnswerModal, setShowAnswerModal ] = useState(false);
+  const [ showQuestionModal, setShowQuestionModal ] = useState(false);
   const [ clickedQuestion, setClickedQuestion ] = useState(null);const [ showPhotosModal, setShowPhotosModal ] = useState(false);
   const [ showMoreQuestions, setShowMoreQuestions ] = useState(true);
   const [ count, setCount ] = useState(2);
   const isInitialMount = useRef(true);
 
+  // Utilizes a useRef to ensure effect does not fire on mount; only on updates after mounting
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -47,6 +50,10 @@ const QuestionList = function(props) {
   const toggleAnswerForm = function(bool, query) {
     setShowAnswerModal(bool);
     query && setClickedQuestion(query);
+  };
+
+  const toggleQuestionForm = function(bool) {
+    setShowQuestionModal(bool);
   };
 
   const questions = props.questions
@@ -76,6 +83,8 @@ const QuestionList = function(props) {
       toggleAnswerForm(false);
     } else if (name === 'photos-background' || name === 'photos-close-btn') {
       togglePhotosModal(false);
+    } else if (name === 'question-background' || name === 'question-close-btn') {
+      toggleQuestionForm(false);
     }
   };
 
@@ -90,7 +99,7 @@ const QuestionList = function(props) {
       }
       <MoreQuestionBoxes>
         { showMoreQuestions && <MoreQuestions handleClick={handleClick}/> }
-        <AddQuestion />
+        <AddQuestion toggleQuestionForm={toggleQuestionForm}/>
       </MoreQuestionBoxes>
       { showAnswerModal && <AnswerModal
         product={props.product}
@@ -100,6 +109,11 @@ const QuestionList = function(props) {
         togglePhotosModal={togglePhotosModal}
         handleClose={handleClose}
       /> }
+      { showQuestionModal && <QuestionModal
+        product={props.product}
+        toggleQuestionForm={toggleQuestionForm}
+        handleClose={handleClose}
+      />}
     </Container>
   );
 }

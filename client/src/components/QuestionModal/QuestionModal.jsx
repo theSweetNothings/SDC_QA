@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from '../AnswerModal/styles.js';
 
-const QuestionModal = function({ handleClose, product }) {
+const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
   const [ question, setQuestion ] = useState(
     { body: '', name: '', email: '' });
   const [ error, setError ] = useState(null);
@@ -34,12 +34,13 @@ const QuestionModal = function({ handleClose, product }) {
                 type='text'
                 name='body'
                 value={question.body}
+                placeholder='Why did you like the product or not?'
                 onChange={handleChange}/>
             </ModalLabel>
             <br/>
             <ModalLabel>What is your nickname?*
               <ModalInput
-                placeholder='Example: jack543!'
+                placeholder='Example: jackson11!'
                 type='text'
                 name='name'
                 value={question.name}
