@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
 import PhotosModal from '../PhotosModal/PhotosModal.jsx';
+import { handleChange, handleSubmit } from './helpers.js';
 
 const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerForm, togglePhotosModal, handleClose }) {
   const [ answer, setAnswer ] = useState(
@@ -26,44 +26,10 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
     togglePhotosModal(false);
   };
 
-  const handleChange = function(event) {
-    const { name, value } = event.target;
-    setAnswer(prev => {
-      let newAnswer = Object.assign({}, prev);
-      newAnswer[name] = value;
-      return newAnswer;
-    });
-  };
-
   const handleClick = function(event) {
     // Use this to open photo model
     event.preventDefault();
     togglePhotosModal(true);
-  };
-
-  const handleSubmit = function(event) {
-    event.preventDefault();
-    // Regex for checking email format
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (answer.body && answer.name && answer.email) {
-      if (emailRegex.test(answer.email)) {
-        const body = {
-          "body": answer.body,
-          "name": answer.name,
-          "email": answer.email,
-          "photos": answer.photos
-        }
-        axios.post(`http://52.26.193.201:3000/qa/${question.question_id}/answers`, body)
-          .then(response => console.log(response))
-          .then(() => setError(null))
-          .catch(error => console.log(error));
-        toggleAnswerForm(false);
-      } else {
-        setError('Provided email address is not in correct email format')
-      }
-    } else {
-      setError('You must enter the following: answer, nickname, and email');
-    }
   };
 
   return (
@@ -75,13 +41,13 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
           </ExitModalArticle>
           <h2>Submit your Answer</h2>
           <h3>{product.name}:  {question.question_body}</h3>
-          <ModalForm onSubmit={handleSubmit}>
+          <ModalForm onSubmit={() => handleSubmit(event, toggleAnswerForm, answer, `${question.question_id}/answers`, setError)}>
             <ModalLabel>Your Answer*
               <ModalTextarea
                 type='text'
                 name='body'
                 value={answer.body}
-                onChange={handleChange}/>
+                onChange={() => handleChange(event, setAnswer)}/>
             </ModalLabel>
             <br/>
             <ModalLabel>What is your nickname?*
@@ -90,7 +56,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
                 type='text'
                 name='name'
                 value={answer.name}
-                onChange={handleChange}/>
+                onChange={() => handleChange(event, setAnswer)}/>
             </ModalLabel>
             <StyledText>
               <p>For privacy reasons, do not use your full name or email address</p>
@@ -101,7 +67,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
                 type='text'
                 name='email'
                 value={answer.email}
-                onChange={handleChange}/>
+                onChange={() => handleChange(event, setAnswer)}/>
             </ModalLabel>
             <StyledText>
               <p>For authentication reasons, you will not be emailed</p>

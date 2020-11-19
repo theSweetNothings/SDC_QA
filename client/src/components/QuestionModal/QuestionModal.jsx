@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from '../AnswerModal/styles.js';
+import { emailRegex, handleChange } from '../AnswerModal/helpers.js';
 
 const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
   const [ question, setQuestion ] = useState(
     { body: '', name: '', email: '' });
   const [ error, setError ] = useState(null);
-
-  const handleChange = function(event) {
-    const { name, value } = event.target;
-    setQuestion(prev => {
-      let newQuestion = Object.assign({}, prev);
-      newQuestion[name] = value;
-      return newQuestion;
-    });
-  };
 
   const handleSubmit = function(event) {
     event.preventDefault();
@@ -35,7 +27,7 @@ const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
                 name='body'
                 value={question.body}
                 placeholder='Why did you like the product or not?'
-                onChange={handleChange}/>
+                onChange={() => handleChange(event, setQuestion)}/>
             </ModalLabel>
             <br/>
             <ModalLabel>What is your nickname?*
@@ -44,7 +36,7 @@ const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
                 type='text'
                 name='name'
                 value={question.name}
-                onChange={handleChange}/>
+                onChange={() => handleChange(event, setQuestion)}/>
             </ModalLabel>
             <StyledText>
               <p>For privacy reasons, do not use your full name or email address</p>
@@ -55,7 +47,7 @@ const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
                 type='text'
                 name='email'
                 value={question.email}
-                onChange={handleChange}/>
+                onChange={() => handleChange(event, setQuestion)}/>
             </ModalLabel>
             <StyledText>
               <p>For authentication reasons, you will not be emailed</p>
