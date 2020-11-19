@@ -101,3 +101,12 @@ export const Underscore = styled.u`
   &:hover {
     cursor: pointer;
 `;
+
+export const Box = styled.article`
+  border: 1px solid black;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 0px;
+  margin-right: 10px;
+  padding: 5px;
+`;

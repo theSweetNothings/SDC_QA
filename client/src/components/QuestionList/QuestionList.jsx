@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
 import Question from '../Question/Question.jsx';
+import MoreQuestions from '../MoreQuestions/MoreQuestions.jsx';
+import AddQuestion from '../AddQuestion/AddQuestion.jsx';
 import AnswerModal from '../AnswerModal/AnswerModal.jsx';
 
 const Container = styled.section`
@@ -18,9 +20,34 @@ const Section = styled.section`
   width: 80%;
 `;
 
+const MoreQuestionBoxes = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+`;
+
 const QuestionList = function(props) {
   const [ showAnswerModal, setShowAnswerModal ] = useState(false);
   const [ clickedQuestion, setClickedQuestion ] = useState(null);const [ showPhotosModal, setShowPhotosModal ] = useState(false);
+  const [ showMoreQuestions, setShowMoreQuestions ] = useState(true);
+  const [ count, setCount ] = useState(2);
+
+  const questions = props.questions
+    .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
+    .map(question => (
+      <Section key={question.question_id}>
+        <Question
+          question={question}
+          product={props.product}
+          toggleAnswerForm={toggleAnswerForm}
+          updateHelp={props.updateHelp}
+        />
+        <AnswerList
+          answers={Object.values(question.answers)}
+          updateHelp={props.updateHelp}
+        />
+      </Section>
+    ));
 
   const toggleAnswerForm = function(bool, query) {
     setShowAnswerModal(bool);
@@ -43,31 +70,20 @@ const QuestionList = function(props) {
   return (
     <Container>
       {// Sort questions in desc order by helpfulness & render a Question component for each sorted question
-      props.questions
-        .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
-        .map(question => (
-          <Section key={question.question_id}>
-            <Question
-              question={question}
-              product={props.product}
-              toggleAnswerForm={toggleAnswerForm}
-              updateHelp={props.updateHelp}
-            />
-            <AnswerList
-              answers={Object.values(question.answers)}
-              updateHelp={props.updateHelp}
-            />
-          </Section>
-        ))
+      questions.length > 2 ? questions.slice(0, count) : questions
       }
-      {showAnswerModal && <AnswerModal
+      <MoreQuestionBoxes>
+        { showMoreQuestions && <MoreQuestions /> }
+        <AddQuestion />
+      </MoreQuestionBoxes>
+      { showAnswerModal && <AnswerModal
         product={props.product}
         question={clickedQuestion}
         showPhotosModal={showPhotosModal}
         toggleAnswerForm={toggleAnswerForm}
         togglePhotosModal={togglePhotosModal}
         handleClose={handleClose}
-      />}
+      /> }
     </Container>
   );
 }
