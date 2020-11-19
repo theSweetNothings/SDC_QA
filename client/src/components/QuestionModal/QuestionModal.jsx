@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from '../AnswerModal/styles.js';
-import { emailRegex, handleChange } from '../AnswerModal/helpers.js';
+import { handleChange, handleSubmit } from '../AnswerModal/helpers.js';
 
 const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
   const [ question, setQuestion ] = useState(
     { body: '', name: '', email: '' });
   const [ error, setError ] = useState(null);
-
-  const handleSubmit = function(event) {
-    event.preventDefault();
-  };
 
   return (
     <ModalBackground onClick={handleClose}             name='question-background'>
@@ -20,7 +16,7 @@ const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
           </ExitModalArticle>
           <h2>Ask Your Question</h2>
           <h3>About the {product.name}</h3>
-          <ModalForm onSubmit={handleSubmit}>
+          <ModalForm onSubmit={() => handleSubmit(event, toggleQuestionForm, question, product.id, setError)}>
             <ModalLabel>Your Question*
               <ModalTextarea
                 type='text'
