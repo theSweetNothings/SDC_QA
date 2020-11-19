@@ -5,6 +5,7 @@ import Answer from '../Answer/Answer.jsx';
 const StyledArticle = styled.article`
   font-weight: bold;
   font-size: 12px;
+  margin-left: 20px;
   &:hover {
     cursor: pointer;
   }

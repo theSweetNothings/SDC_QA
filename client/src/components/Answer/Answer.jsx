@@ -21,7 +21,8 @@ const AnswerMetadata = styled.article`
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
-  width: 350px;
+  margin-left: 20px;
+  width: 375px;
 `;
 
 const Answer = function(props) {

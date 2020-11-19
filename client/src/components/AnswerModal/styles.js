@@ -100,6 +100,7 @@ export const Image = styled.img`
 export const Underscore = styled.u`
   &:hover {
     cursor: pointer;
+  }
 `;
 
 export const Box = styled.article`
@@ -109,4 +110,7 @@ export const Box = styled.article`
   margin-left: 0px;
   margin-right: 10px;
   padding: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
