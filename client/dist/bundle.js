@@ -10,9 +10,9 @@
   z-index: 1;
 `,Rt=bt.article`
   align-items: center;
-  background-color: steelblue;
+  background-color: seashell;
   border-radius: 10px;
-  color: seashell;
+  color: black;
   display: flex;
   flex-direction: column;
   margin: 5% auto;
