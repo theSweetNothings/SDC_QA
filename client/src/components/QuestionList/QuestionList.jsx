@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import AnswerList from '../AnswerList/AnswerList.jsx';
 import Answer from '../Answer/Answer.jsx';
@@ -11,6 +11,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 75px;
 `;
 
 const Section = styled.section`
@@ -31,6 +32,18 @@ const QuestionList = function(props) {
   const [ clickedQuestion, setClickedQuestion ] = useState(null);const [ showPhotosModal, setShowPhotosModal ] = useState(false);
   const [ showMoreQuestions, setShowMoreQuestions ] = useState(true);
   const [ count, setCount ] = useState(2);
+  const isInitialMount = useRef(true);
+
+  // Fire on updates to count but not on initial mount & hide the More Questions Button if there aren't any more to render
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (props.questions.length <= count) {
+        setShowMoreQuestions(false);
+      }
+    }
+  }, [count]);
 
   const questions = props.questions
     .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
@@ -47,7 +60,7 @@ const QuestionList = function(props) {
           updateHelp={props.updateHelp}
         />
       </Section>
-    ));
+  ));
 
   const toggleAnswerForm = function(bool, query) {
     setShowAnswerModal(bool);
@@ -67,13 +80,17 @@ const QuestionList = function(props) {
     }
   };
 
+  const expandQuestions = function() {
+    setCount(prev => prev + 2);
+  }
+
   return (
     <Container>
       {// Sort questions in desc order by helpfulness & render a Question component for each sorted question
       questions.length > 2 ? questions.slice(0, count) : questions
       }
       <MoreQuestionBoxes>
-        { showMoreQuestions && <MoreQuestions /> }
+        { showMoreQuestions && <MoreQuestions expandQuestions={expandQuestions} /> }
         <AddQuestion />
       </MoreQuestionBoxes>
       { showAnswerModal && <AnswerModal
