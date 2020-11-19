@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Box } from '../AnswerModal/styles.js';
 
-const MoreQuestions = function({ expandQuestions }) {
-  const handleClick = function(event) {
-    expandQuestions();
-  };
+const MoreQuestions = function({ handleClick }) {
 
   return (
     <Box onClick={handleClick}>

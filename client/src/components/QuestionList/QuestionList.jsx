@@ -11,7 +11,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 75px;
 `;
 
 const Section = styled.section`
@@ -24,6 +23,7 @@ const Section = styled.section`
 const MoreQuestionBoxes = styled.section`
   display: flex;
   justify-content: flex-start;
+  margin-bottom: 100px;
   width: 80%;
 `;
 
@@ -34,7 +34,6 @@ const QuestionList = function(props) {
   const [ count, setCount ] = useState(2);
   const isInitialMount = useRef(true);
 
-  // Fire on updates to count but not on initial mount & hide the More Questions Button if there aren't any more to render
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -44,6 +43,11 @@ const QuestionList = function(props) {
       }
     }
   }, [count]);
+
+  const toggleAnswerForm = function(bool, query) {
+    setShowAnswerModal(bool);
+    query && setClickedQuestion(query);
+  };
 
   const questions = props.questions
     .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
@@ -60,12 +64,7 @@ const QuestionList = function(props) {
           updateHelp={props.updateHelp}
         />
       </Section>
-  ));
-
-  const toggleAnswerForm = function(bool, query) {
-    setShowAnswerModal(bool);
-    query && setClickedQuestion(query);
-  };
+    ));
 
   const togglePhotosModal = function(bool) {
     setShowPhotosModal(bool);
@@ -80,9 +79,9 @@ const QuestionList = function(props) {
     }
   };
 
-  const expandQuestions = function() {
+  const handleClick = function(event) {
     setCount(prev => prev + 2);
-  }
+  };
 
   return (
     <Container>
@@ -90,7 +89,7 @@ const QuestionList = function(props) {
       questions.length > 2 ? questions.slice(0, count) : questions
       }
       <MoreQuestionBoxes>
-        { showMoreQuestions && <MoreQuestions expandQuestions={expandQuestions} /> }
+        { showMoreQuestions && <MoreQuestions handleClick={handleClick}/> }
         <AddQuestion />
       </MoreQuestionBoxes>
       { showAnswerModal && <AnswerModal
