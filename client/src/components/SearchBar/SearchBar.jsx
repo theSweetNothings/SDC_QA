@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const StyledContainer = styled.section`
@@ -20,9 +20,17 @@ const StyledInput = styled.input`
   padding-left: 10px;
 `;
 
-const SearchBar = function() {
+const SearchBar = function({ filterQuestions, resetFilter }) {
   // State
   const [ searched, setSearched ] = useState('');
+
+  useEffect(() => {
+    if (searched.length > 2) {
+      filterQuestions(searched);
+    } else {
+      resetFilter();
+    }
+  }, [searched]);
 
   // Event handler for updating searched
   const handleChange = function(event) {

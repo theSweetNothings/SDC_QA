@@ -14,6 +14,7 @@ const QuestionsAndAnswers = function(props) {
   const [ questions, setQuestions ] = useState([]);
   const [ product, setProduct ] = useState(null);
   const [ helpCount, setHelpCount ] = useState(0);
+  const [ filtered, setFiltered ] = useState([]);
 
   // Perform GET request on mount based off product id
   // Perform GET request again when helpCount updates
@@ -24,7 +25,8 @@ const QuestionsAndAnswers = function(props) {
     axios.get(`http://52.26.193.201:3000/qa/${id}`)
       .then(response => {
         if (isMounted) {
-          setQuestions(response.data.results)
+          setQuestions(response.data.results);
+          setFiltered(response.data.results);
         }
       })
       .catch(error => console.log(error));
@@ -44,11 +46,27 @@ const QuestionsAndAnswers = function(props) {
     setHelpCount(prev => prev + 1);
   };
 
+  const filterQuestions = function(search) {
+    let regex = new RegExp(`(${search})+`, 'i');
+    setFiltered(prev => {
+      let copy = [...questions];
+      let filtered = copy.filter(question => regex.test(question.question_body));
+      return filtered;
+    });
+  };
+
+  const resetFilter = function(search) {
+    setFiltered([...questions]);
+  }
+
   return (
     <Container>
-      <SearchBar/>
+      <SearchBar
+        filterQuestions={filterQuestions}
+        resetFilter={resetFilter}
+      />
       {questions && <QuestionList
-        questions={questions}
+        questions={filtered}
         product={product}
         updateHelp={updateHelp}/>}
     </Container>
