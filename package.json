@@ -11,7 +11,7 @@
     "server": "cd server/ && nodemon server.js",
     "build": "webpack --mode production",
     "build:watch": "webpack --watch",
-    "deploy": "aws s3 sync dist/ s3://questions-fec"
+    "deploy": "aws s3 sync webpack dist/ s3://questions-fec"
   },
   "repository": {
     "type": "git",
