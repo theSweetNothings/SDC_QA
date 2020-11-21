@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 const SearchBar = React.lazy(() => import('./components/SearchBar/SearchBar.jsx'));
@@ -61,14 +61,18 @@ const QuestionsAndAnswers = function(props) {
 
   return (
     <Container>
-      <SearchBar
-        filterQuestions={filterQuestions}
-        resetFilter={resetFilter}
-      />
-      {questions && <QuestionList
-        questions={filtered}
-        product={product}
-        updateHelp={updateHelp}/>}
+      <Suspense fallback={<section></section>}>
+        <SearchBar
+          filterQuestions={filterQuestions}
+          resetFilter={resetFilter}
+        />
+      </Suspense>
+      <Suspense fallback={<section></section>}>
+        {questions && <QuestionList
+          questions={filtered}
+          product={product}
+          updateHelp={updateHelp}/>}
+      </Suspense>
     </Container>
   );
 };
