@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Answer from '../Answer/Answer.jsx';
-import MoreAnswers from '../MoreAnswers/MoreAnswers.jsx';
+const MoreAnswers = lazy(() => import('../MoreAnswers/MoreAnswers.jsx'));
 
 const AnswerList = function(props) {
   // Sort answers in desc order by helpfulness & render an Answer component for each sorted question
@@ -17,7 +17,9 @@ const AnswerList = function(props) {
   return (
     <section>
       { answers.length > 2 ? answers.slice(0, 2) : answers }
-      { answers.length > 2 && <MoreAnswers answers={answers.slice(2)}/> }
+        { answers.length > 2 && <Suspense fallback={<section></section>}>
+          <MoreAnswers answers={answers.slice(2)}/>
+        </Suspense> }
     </section>
   );
 };

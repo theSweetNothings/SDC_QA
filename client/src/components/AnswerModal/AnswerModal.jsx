@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
-import PhotosModal from '../PhotosModal/PhotosModal.jsx';
 import { handleChange, handleSubmit } from './helpers.js';
+const PhotosModal = lazy(() => import('../PhotosModal/PhotosModal.jsx'));
 
 const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerForm, togglePhotosModal, handleClose }) {
   const [ answer, setAnswer ] = useState(
@@ -81,7 +81,9 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
           {error && <p>{error}</p>}
         </ModalContent>
       </ModalBackground>
-      {showPhotosModal && <PhotosModal handleClose={handleClose} handleUpload={handleUpload}/>}
+      {showPhotosModal && <Suspense fallback={<section></section>}>
+        <PhotosModal handleClose={handleClose} handleUpload={handleUpload}/>
+      </Suspense>}
     </>
   );
 }

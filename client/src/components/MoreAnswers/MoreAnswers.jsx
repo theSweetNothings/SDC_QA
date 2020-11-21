@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
-import Answer from '../Answer/Answer.jsx';
 
 const StyledArticle = styled.article`
   font-weight: bold;
