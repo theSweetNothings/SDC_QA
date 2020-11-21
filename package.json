@@ -11,7 +11,7 @@
     "server": "cd server/ && nodemon server.js",
     "build": "webpack --mode production",
     "build:watch": "webpack --watch",
-    "deploy": "npm run build && npm run start"
+    "deploy": "webpack && cd server/ && node server.js"
   },
   "repository": {
     "type": "git",
