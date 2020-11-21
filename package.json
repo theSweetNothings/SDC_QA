@@ -9,7 +9,7 @@
     "test:watch": "jest --watch",
     "start": "cd server/ && node server.js",
     "server": "cd server/ && nodemon server.js",
-    "build": "webpack --mode production",
+    "build": "webpack",
     "build:watch": "webpack --watch",
     "deploy": "webpack && cd server/ && node server.js"
   },
