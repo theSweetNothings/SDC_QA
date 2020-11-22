@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText, Thumbnails, Image } from '../AnswerModal/styles.js';
+import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalInput, ModalLabel, StyledButton, StyledInput, Thumbnails, Image } from '../AnswerModal/styles.js';
 
 const FileInput = styled.input`
   align-self: center;
@@ -10,42 +10,24 @@ const FileInput = styled.input`
 
 const PhotosModal = function({ handleClose, handleUpload }) {
   const [ photos, setPhotos ] = useState([]);
+  const [ newPhoto, setNewPhoto ] = useState('');
   const [ thumbs, setThumbs ] = useState([]);
 
-  const fileSelectedHandler = function(event) {
+  const handleChange = function(event) {
     if (photos.length < 5) {
-      /*setPhotos(prev => {
-        let fd = new FormData(); // Take out if breaks
-        fd.append('image', event.target.files[0]); // added
-        let updated = [...prev];
-        return updated.concat(fd);
-        // return updated.concat(event.target.files[0]);
-      });*/
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setThumbs(prev => {
-            let updatedThumbs = [...prev];
-            return updatedThumbs.concat({ url: reader.result });
-          });
-        }
-      };
-      reader.readAsDataURL(event.target.files[0]);
+      const { value } = event.target;
+      setNewPhoto(value);
     }
   };
 
-      /*const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setPhotos(prev => {
-            let updated = [...prev];
-            return updated.concat(reader.result);
-          });
-        }
-      }
-      //reader.readAsDataURL(event.target.files[0]);
-    }
-  };*/
+  const handleSubmit = function(event) {
+    event.preventDefault();
+    setPhotos(prev => {
+      const updated = [...prev, newPhoto];
+      return updated;
+    });
+    setNewPhoto('');
+  };
 
   return (
     <ModalBackground name='photos-background'>
@@ -57,12 +39,25 @@ const PhotosModal = function({ handleClose, handleUpload }) {
         </ExitModalArticle>
         <h2>Upload photo</h2>
         <br/>
-        { photos.length < 5 && <FileInput type='file' onChange={fileSelectedHandler}/> }
+        {photos.length < 5 &&
+          <ModalForm onSubmit={handleSubmit}>
+            <ModalLabel>Photo URL:
+              <ModalInput
+                type='text'
+                value={newPhoto}
+                onChange={handleChange}
+              />
+            </ModalLabel>
+            <br/>
+            <StyledInput type='submit' value='Save'/>
+          </ModalForm>
+        }
         <Thumbnails>
-          { thumbs && thumbs.map(thumb => <Image key={uuidv4()} src={thumb.url}/>) }
+          { photos && photos.map(photo => <Image key={uuidv4()} src={photo}/>) }
         </Thumbnails>
         <StyledButton
-          onClick={() => handleUpload(thumbs)}>Upload
+          onClick={() => handleUpload(photos)}>
+          Upload Photos
         </StyledButton>
       </ModalContent>
     </ModalBackground>
@@ -70,3 +65,30 @@ const PhotosModal = function({ handleClose, handleUpload }) {
 };
 
 export default PhotosModal;
+
+
+      /*
+      // Commented out from earlier change
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setPhotos(prev => {
+            let updated = [...prev];
+            return updated.concat(reader.result);
+          });
+        }
+      }
+      //reader.readAsDataURL(event.target.files[0]);
+    }
+  };*/
+        /*
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setThumbs(prev => {
+            let updatedThumbs = [...prev];
+            return updatedThumbs.concat({ url: reader.result });
+          });
+        }
+      };
+      reader.readAsDataURL(event.target.files[0]);*/

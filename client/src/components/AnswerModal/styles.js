@@ -85,7 +85,9 @@ export const StyledButton = styled.button`
 
 export const Thumbnails = styled.section`
   display: flex;
-  justifiy-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin: 10px 0px;
 `;
 
@@ -93,6 +95,7 @@ export const Image = styled.img`
   border: 1px solid seashell;
   border-radius: 5px;
   height: 50px;
+  justify-self: center;
   margin: 5px;
   width: 50px;
 `;

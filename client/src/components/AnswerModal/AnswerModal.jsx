@@ -1,5 +1,6 @@
 import React, { useState, lazy, Suspense } from 'react';
-import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText } from './styles.js';
+import { v4 as uuidv4 } from 'uuid';
+import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalForm, ModalTextarea, ModalInput, ModalLabel, StyledButton, StyledInput, StyledText,Thumbnails, Image } from './styles.js';
 import { handleChange, handleSubmit } from './helpers.js';
 const PhotosModal = lazy(() => import('../PhotosModal/PhotosModal.jsx'));
 
@@ -34,7 +35,9 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
 
   return (
     <>
-      <ModalBackground onClick={handleClose}             name='answer-background'>
+      <ModalBackground
+        onClick={handleClose}                name='answer-background'
+      >
         <ModalContent>
           <ExitModalArticle>
             <ExitModalBtn onClick={handleClose} name='answer-close-btn'>X</ExitModalBtn>
@@ -75,6 +78,10 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
             <br/>
             <StyledButton onClick={handleClick}>Upload photos
             </StyledButton>
+            <br/>
+            <Thumbnails>
+              { answer.photos && answer.photos.map(photo => <Image key={uuidv4()} src={photo}/>) }
+            </Thumbnails>
             <br/>
             <StyledInput type='submit' value='Submit'/>
           </ModalForm>

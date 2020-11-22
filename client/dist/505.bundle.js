@@ -1,4 +1,4 @@
-(self.webpackChunkclarkfecsource=self.webpackChunkclarkfecsource||[]).push([[505],{1384:(e,r,t)=>{"use strict";t.d(r,{vO:()=>n,hz:()=>o,Ye:()=>l,YV:()=>a,Yr:()=>c,Az:()=>p,SP:()=>d,B0:()=>s,qY:()=>x,Fy:()=>u,Sn:()=>f,es:()=>h,Ee:()=>g,QW:()=>w,xu:()=>b});var i=t(9163);const n=i.ZP.section`
+(self.webpackChunkclarkfecsource=self.webpackChunkclarkfecsource||[]).push([[505],{1384:(e,r,t)=>{"use strict";t.d(r,{vO:()=>n,hz:()=>o,Ye:()=>l,YV:()=>a,Yr:()=>c,Az:()=>p,SP:()=>s,B0:()=>d,qY:()=>x,Fy:()=>u,Sn:()=>f,es:()=>h,Ee:()=>g,QW:()=>w,xu:()=>b});var i=t(9163);const n=i.ZP.section`
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
   left: 0;
@@ -35,10 +35,10 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
   text-align: right;
-`,d=i.ZP.input`
+`,s=i.ZP.input`
   margin-left: 10px;
   width: 55%;
-`,s=i.ZP.textarea`
+`,d=i.ZP.textarea`
   margin-left: 10px;
   width: 55%;
 `,x=i.ZP.article`
@@ -61,12 +61,15 @@
   }
 `,h=i.ZP.section`
   display: flex;
-  justifiy-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin: 10px 0px;
 `,g=i.ZP.img`
   border: 1px solid seashell;
   border-radius: 5px;
   height: 50px;
+  justify-self: center;
   margin: 5px;
   width: 50px;
 `,w=i.ZP.u`
