@@ -40,7 +40,7 @@ const Answer = function(props) {
       <StyledAnswer>
         <p><strong style={{ fontSize: '16px'}}>A: </strong> {props.answer.body}</p>
       </StyledAnswer>
-      <Thumbnails>
+      <Thumbnails style={{ width: '375px' }}>
         {props.answer.photos && props.answer.photos.map(photo => <Image src={photo}/>)}
       </Thumbnails>
       <AnswerMetadata>
