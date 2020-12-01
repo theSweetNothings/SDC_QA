@@ -20,7 +20,7 @@ const QuestionsAndAnswers = function(props) {
   // Perform GET request again when helpCount updates
   useEffect(() => {
     let isMounted = true; // Keep track of whether component is mounted
-    const id = props.match.params.id; // React router provides id in props
+    const id = props.match.params.id || '25'; // React router provides id in props
     // Get questions from API & set state only if the component is still mounted
     axios.get(`http://52.26.193.201:3000/qa/${id}`)
       .then(response => {
