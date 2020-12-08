@@ -22,8 +22,9 @@ const QuestionsAndAnswers = function(props) {
     let isMounted = true; // Keep track of whether component is mounted
     const id = props.match.params.id || '25'; // React router provides id in props
     // Get questions from API & set state only if the component is still mounted
-    axios.get(`http://52.26.193.201:3000/qa/${id}`)
+    axios.get(`/qa/${id}`)
       .then(response => {
+        console.log("APP:", response.data.results)
         if (isMounted) {
           setQuestions(response.data.results);
           setFiltered(response.data.results);
@@ -31,13 +32,13 @@ const QuestionsAndAnswers = function(props) {
       })
       .catch(error => console.log(error));
     // Get product name from API & set state only if the component is still mounted
-    axios.get(`http://52.26.193.201:3000/products/${id}`)
-      .then(response => {
-        if (isMounted) {
-          setProduct(response.data);
-        }
-      })
-      .catch(error => console.log(error));
+    // axios.get(`http://52.26.193.201:3000/products/${id}`)
+    //   .then(response => {
+    //     if (isMounted) {
+    //       setProduct(response.data);
+    //     }
+    //   })
+    //   .catch(error => console.log(error));
     // This callback fires when the component unmounts to prevent attempts at changing state after the component unmounts
     return () => { isMounted = false };
   }, [helpCount]);
@@ -68,7 +69,7 @@ const QuestionsAndAnswers = function(props) {
       <QuestionList
         questions={filtered}
         product={product}
-        updateHelp={updateHelp}/>}
+        updateHelp={updateHelp}/>
     </Container>
   );
 };
