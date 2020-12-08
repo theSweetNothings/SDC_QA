@@ -6,4 +6,8 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   "results": []
-})
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+module.exports = Product;
