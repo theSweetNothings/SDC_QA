@@ -24,7 +24,8 @@ const QuestionsAndAnswers = function(props) {
     // Get questions from API & set state only if the component is still mounted
     axios.get(`/qa/${id}`)
       .then(response => {
-        // console.log("APP:", response.data.results)
+        console.log(response)
+        console.log("APP:", response.data.results)
         if (isMounted) {
           setQuestions(response.data.results);
           setFiltered(response.data.results);

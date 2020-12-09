@@ -41,7 +41,7 @@ const Answer = function(props) {
         <p><strong style={{ fontSize: '16px'}}>A: </strong> {props.answer.body}</p>
       </StyledAnswer>
       <Thumbnails style={{ width: '375px' }}>
-        {props.answer.photos && props.answer.photos.map(photo => <Image src={photo}/>)}
+        {props.answer.photos && props.answer.photos.map(photo => <Image src={photo.url}/>)}
       </Thumbnails>
       <AnswerMetadata>
         <p>by {props.answer.answerer_name}, {transformDate(props.answer.date)}</p>

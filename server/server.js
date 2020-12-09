@@ -32,8 +32,9 @@ const Answer = require('../models/Answer');
 app.get('/qa/:product_id', async (req, res) => {
   try {
     const productId = req.params.product_id;
-    const questions = await Product.find({product_id: productId});
-    res.status(200).send(questions[0]);
+    const questions = await Product.findOne({ product_id: productId });
+    console.log(questions)
+    res.status(200).send(questions);
   } catch(err) {
     console.log('ERROR:', err);
   }
