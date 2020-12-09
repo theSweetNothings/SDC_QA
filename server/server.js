@@ -21,48 +21,67 @@ mongoose.connect('mongodb://localhost:27017/sdcDB_test', {
 
 // TODO: import queries
 
+const Product = require('../models/Product');
 const Question = require('../models/Question');
-// const Answer = require('../models/Answer');
+const Answer = require('../models/Answer');
 
 /* SDC Server Routes */
 
 // GET
 
-app.get('/qa/:id', async (req, res) => {
-  // console.log(req.params.id)
-  const questions = await Question.find({product_id: req.params.id})
-  // console.log(questions[0]);
-  res.send(questions[0])
-})
-
-{/*
-app.get('/qa/:product_id', (req, res) => {
-  const { productId } = req.params;
-  // do database stuff
-  res.sendStatus(200);
+app.get('/qa/:product_id', async (req, res) => {
+  try {
+    const productId = req.params.product_id;
+    const questions = await Product.find({product_id: productId});
+    res.status(200).send(questions[0]);
+  } catch(err) {
+    console.log('ERROR:', err);
+  }
 }) // gets qa for product
 
-app.get('/qa/:question_id/answers', (req, res) => {
-  const { questionId } = req.params;
-  // do database stuff
-  res.sendStatus(200);
-}) // gets answers for single question
+{/*
+  app.get('/qa/:question_id/answers', (req, res) => {
+    const questionId = req.params;
+    console.log(questionId);
+    // do database stuff
+    // res.sendStatus(200);
+  }) // gets answers for single question
 
 app.get('/products/:product_id', (req, res) => {
   const { productId } = req.params;
   // do database stuff
   res.sendStatus(200);
 }) // gets product info
-
+*/}
 // POST
 
-app.post('/qa/:product_id', (req, res) => {
-  const { productId } = req.params;
-  const { body, name, email } = req.body;
-  // do database stuff
-  res.sendStatus(201);
+app.post('/qa/:product_id', async (req, res) => {
+  try {
+    const query = { product_id: req.params.product_id};
+    const { body, name, email } = req.body;
+
+    const newQuestion = {
+      question_body: body,
+      asker_name: name,
+      question_date: new Date()
+    };
+
+    await Product.findOneAndUpdate(
+      query,
+      { $push:
+        {
+          results: newQuestion
+        }
+      },
+    );
+
+    res.sendStatus(201);
+  } catch(err) {
+    console.log('ERROR:', err);
+  }
 }) // adds question
 
+{/*}
 app.post('/qa/:question_id/answers', (req, res) => {
   const { questionId } = req.params;
   const { body, name, email, photos } = req.body;

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
+  "product_id": {
+    type: Number,
+    required: true
+  },
   "question_id": {
     type: Number,
     required: true

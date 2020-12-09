@@ -11,28 +11,28 @@ mongoose.connect('mongodb://localhost:27017/sdcDB_test', {
   .then(() => console.log('Connection open for sdcDB_test...'))
   .catch(err => console.log('ERROR:', err));
 
-// const q = new Question({
-//   "product_id": "87",
-//   "results": [{
-//     "question_id": 26,
-//     "question_body": "how does it fit the men",
-//     "question_date": "2018-08-18T00:00:00.000Z",
-//     "asker_name": "johndoe",
-//     "question_helpfulness": 0,
-//     "reported": 0,
-//     "answers": {
-      // 84: {
-      //   "body": 'for the men large it bag',
-      //   "answerer_name": 'jimbuck',
-      //   "date": '2020-07-02T00:00:00.000Z',
-      //   "helpfulness": 85,
-      //   "id": 84
-      // }
-//     }
-//   }]
-// })
+const p = new Product({
+  "product_id": "87",
+  "results": [{
+    "question_id": 26,
+    "question_body": "how does it fit the men",
+    "question_date": "2018-08-18T00:00:00.000Z",
+    "asker_name": "johndoe",
+    "question_helpfulness": 0,
+    "reported": 0,
+    "answers": {
+      84: {
+        "body": 'for the men large it bag',
+        "answerer_name": 'jimbuck',
+        "date": '2020-07-02T00:00:00.000Z',
+        "helpfulness": 85,
+        "id": 84
+      }
+    }
+  }]
+})
 
-// q.save().then(r => console.log(r));
+p.save().then(r => console.log(r));
 
 const seedQuestions = [
   {
@@ -51,7 +51,8 @@ const seedQuestions = [
             "answerer_name": 'janebambi',
             "date": '2020-07-02T00:00:00.000Z',
             "helpfulness": 80,
-            "id": 85
+            "id": 85,
+            "photos": []
           }
         }
       },
@@ -68,7 +69,8 @@ const seedQuestions = [
             "answerer_name": 'jamespoint',
             "date": '2020-07-02T00:00:00.000Z',
             "helpfulness": 78,
-            "id": 86
+            "id": 86,
+            "photos": []
           }
         }
       },
@@ -85,7 +87,8 @@ const seedQuestions = [
             "answerer_name": 'lassie',
             "date": '2020-07-02T00:00:00.000Z',
             "helpfulness": 77,
-            "id": 87
+            "id": 87,
+            "photos": []
           }
         }
       },
@@ -102,7 +105,8 @@ const seedQuestions = [
             "answerer_name": 'johnMADDEN',
             "date": '2020-07-02T00:00:00.000Z',
             "helpfulness": 99,
-            "id": 88
+            "id": 88,
+            "photos": []
           }
         }
       }
@@ -110,6 +114,6 @@ const seedQuestions = [
   }
 ]
 
-Question.insertMany(seedQuestions)
+Product.insertMany(seedQuestions)
   .then(r => console.log(r))
   .catch(err => console.log(err))

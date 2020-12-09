@@ -1,0 +1,101 @@
+const faker = require('faker');
+const fs = require('fs');
+
+const writeQuestions = fs.createWriteStream('questions2.json');
+
+const writeOneMillionQuestions = (writer, encoding, cb) => {
+  let i = 3;
+  let id = 0;
+  const write = () => {
+    let ok = true;
+    do {
+      console.log(i);
+      i -= 1;
+      id += 1;
+
+      const productId = id;
+
+      // generate photo array with 0-5 photos
+
+      const photoArrayMaker = () => {
+        let photos = [];
+        let randomNum = Math.floor(Math.random() * Math.floor(5));
+
+        for (let i = 0; i < randomNum; i++) {
+          let photoObj = {
+            url: faker.image.imageUrl()
+          }
+          photos.push(photoObj);
+        };
+
+        return photos;
+      };
+
+      // generate answers array with 0-5 answers
+
+      const answerArrayMaker = () => {
+        let answers = [];
+        let randomNum = Math.floor(Math.random() * Math.floor(5));
+
+        for (let i = 0; i < randomNum; i++) {
+          let answerObj = {
+            id: faker.random.number(),
+            body: faker.lorem.sentence(),
+            date: faker.date.between('2020-09-01', '2020-12-05').toISOString(),
+            answerer_name: faker.internet.userName(),
+            helpfulness: faker.random.number(),
+            photos: photoArrayMaker()
+          };
+
+          answers.push(answerObj);
+        };
+
+        return answers;
+      };
+
+      // generate questions array with 1-5 questions
+
+      const questionArrayMaker = () => {
+        let questions = []
+        let randomNum = Math.floor(Math.random() * Math.floor(5));
+
+        for (let i = 1; i < randomNum; i++) {
+          let questionObj = {
+            question_id: faker.random.number(),
+            question_body: faker.lorem.sentence(),
+            question_date: faker.date.between('2020-09-01', '2020-12-05'),
+            asker_name: faker.internet.userName(),
+            question_helpfulness: faker.random.number(),
+            answers: answerArrayMaker()
+          };
+          questions.push(questionObj);
+        }
+
+        return questions;
+      }
+
+      const productMaker = () => {
+        let product = {
+          product_id: productId,
+          results: questionArrayMaker()
+        }
+
+        return product;
+      }
+
+      const data = productMaker();
+
+      if (i === 0) {
+        writer.write(JSON.stringify(data), encoding, cb);
+      } else {
+        ok = writer.write(JSON.stringify(data), encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+  write();
+}
+
+writeOneMillionQuestions(writeQuestions, 'utf-8', () => {writeQuestions.end()});

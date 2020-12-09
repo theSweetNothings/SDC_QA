@@ -24,7 +24,7 @@ export const handleSubmit = function(event, toggler, state, path, setter) {
       if (state.photos) {
         body["photos"] = state.photos
       }
-      axios.post(`http://52.26.193.201:3000/qa/${path}`, body)
+      axios.post(`/qa/${path}`, body)
         .then(response => console.log(response))
         .then(() => setter(null))
         .catch(error => console.log(error));
