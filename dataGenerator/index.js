@@ -13,8 +13,6 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
       i -= 1;
       id += 1;
 
-      const productId = id;
-
       // generate photo array with 0-5 photos
 
       const photoArrayMaker = () => {
@@ -23,7 +21,7 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
 
         for (let i = 0; i < randomNum; i++) {
           let photoObj = {
-            url: faker.image.imageUrl()
+            url: faker.image.image()
           }
           photos.push(photoObj);
         };
@@ -76,7 +74,7 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
 
       const productMaker = () => {
         let product = {
-          product_id: productId,
+          product_id: id,
           results: questionArrayMaker()
         }
 
