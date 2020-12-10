@@ -12,90 +12,122 @@ app.use(express.json());
 app.use(cors());
 app.use(compression());
 
-mongoose.connect('mongodb://localhost:27017/sdcDB_test', {
+mongoose.connect('mongodb://localhost:27017/sdcDB_test2', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-  .then(() => console.log('Connection open for sdcDB_test...'))
+  .then(() => console.log('Connection open for sdcDB_test2...'))
   .catch(err => console.log('ERROR:', err));
 
 // TODO: import queries
 
-const Product = require('../models/Product');
-const Question = require('../models/Question');
-const Answer = require('../models/Answer');
+const Schema = require('../models/Schema');
+console.log(Schema.Question)
 
 /* SDC Server Routes */
 
 // GET
-
 app.get('/qa/:product_id', async (req, res) => {
   try {
     const productId = req.params.product_id;
-    const questions = await Product.findOne({ product_id: productId });
-    console.log(questions)
+    const questions = await Schema.Product.findOne({ product_id: productId }).lean();
     res.status(200).send(questions);
   } catch(err) {
     console.log('ERROR:', err);
   }
 }) // gets qa for product
 
-{/*
-  app.get('/qa/:question_id/answers', (req, res) => {
-    const questionId = req.params;
-    console.log(questionId);
-    // do database stuff
-    // res.sendStatus(200);
-  }) // gets answers for single question
+app.get('/qa/:question_id/answers', (req, res) => {
+  const questionId = req.params;
+  console.log(questionId);
+  // do database stuff
+  // res.sendStatus(200);
+}) // gets answers for single question
 
 app.get('/products/:product_id', (req, res) => {
   const { productId } = req.params;
   // do database stuff
   res.sendStatus(200);
 }) // gets product info
-*/}
+
 // POST
 
 app.post('/qa/:product_id', async (req, res) => {
   try {
     const query = { product_id: req.params.product_id};
-    const { body, name, email } = req.body;
+    const questionData = {
+      question_body: req.body.body,
+      asker_name: req.body.name,
+      question_date: new Date().toISOString(),
+      question_helpfulness: 0,
+      reported: 0
+    }
 
-    const newQuestion = {
-      question_body: body,
-      asker_name: name,
-      question_date: new Date()
-    };
+    const newQuestion = new Schema.Question(questionData);
 
-    await Product.findOneAndUpdate(
+    const result = await Schema.Product.findOneAndUpdate(
       query,
       { $push:
-        {
-          results: newQuestion
-        }
+        { results: newQuestion }
       },
-    );
+      { new: true }
+      )
 
-    res.sendStatus(201);
-  } catch(err) {
-    console.log('ERROR:', err);
-  }
-}) // adds question
+      res.sendStatus(201);
+    } catch(err) {
+      console.log('ERROR:', err);
+    }
+  }) // adds question
 
-{/*}
-app.post('/qa/:question_id/answers', (req, res) => {
-  const { questionId } = req.params;
-  const { body, name, email, photos } = req.body;
-  // do database stuff
-  res.sendStatus(201);
-}) // adds answer to question
+  app.post('/qa/:question_id/answers', async (req, res) => {
+    try {
+      const query = { _id: req.params.question_id }
+      console.log(query)
+      const answerData = {
+        body: req.body.body,
+        date: new Date().toISOString(),
+        answerer_name: req.body.name,
+        helpfulness: 0,
+        reported: 0,
+        photos: req.body.photos
+      }
+
+      const newAnswer = new Schema.Answer(answerData);
+      console.log(newAnswer);
+
+      const result = Schema.Question.findOneAndUpdate(
+        query,
+        { $push:
+          {answers: newAnswer}
+        },
+        { new: true }
+      )
+
+      res.sendStatus(201);
+    } catch(err) {
+      console.log('ERROR:', err);
+    }
+  }) // adds answer to question
+  {/*
 
 // PUT
 
 app.put('/qa/question/:question_id/helpful', (req, res) => {
-  const { questionId } = req.params;
-  // do database stuff
-  res.sendStatus(204);
+  try {
+    const query = { _id: req.params };
+
+    const incQHelpful = await Schema.Question.findOneAndUpdate(
+      query,
+      { $inc:
+        { question_helpfulness: 1 }
+      },
+      { new: true }
+      );
+
+      res.sendStatus(204);
+  } catch(err) {
+    console.log('ERROR:', err)
+  }
 }) // marks question as helpful
 
 app.put('/qa/question/:question_id/report', (req, res) => {
@@ -105,8 +137,17 @@ app.put('/qa/question/:question_id/report', (req, res) => {
 }) // reports question
 
 app.put('/qa/answer/:answer_id/helpful', (req, res) => {
-  const { answerId } = req.params;
-  // do database stuff
+  const query = { _id: req.params };
+
+  const incQHelpful = await Product.findOneAndUpdate(
+    query,
+    { $inc:
+      { question_helpfulness: 1 }
+    },
+    { new: true }
+  );
+
+  res.sendStatus(204);
   res.sendStatus(204);
 }) // marks answer as helpful
 

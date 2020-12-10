@@ -15,7 +15,7 @@ const QuestionModal = function({ handleClose, product, toggleQuestionForm }) {
           </ExitModalArticle>
           <h2>Ask Your Question</h2>
           <h3>About the {product.name}</h3>
-          <ModalForm onSubmit={() => handleSubmit(event, toggleQuestionForm, question, product.id, setError)}>
+          <ModalForm onSubmit={() => handleSubmit(event, toggleQuestionForm, question, product.product_id, setError)}>
             <ModalLabel>Your Question*
               <ModalTextarea
                 type='text'

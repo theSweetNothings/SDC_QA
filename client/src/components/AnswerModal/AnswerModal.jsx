@@ -44,7 +44,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
           </ExitModalArticle>
           <h2>Submit your Answer</h2>
           <h3>{product.name}:  {question.question_body}</h3>
-          <ModalForm onSubmit={() => handleSubmit(event, toggleAnswerForm, answer, `${question.question_id}/answers`, setError)}>
+          <ModalForm onSubmit={() => handleSubmit(event, toggleAnswerForm, answer, `${question._id}/answers`, setError)}>
             <ModalLabel>Your Answer*
               <ModalTextarea
                 type='text'

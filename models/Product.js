@@ -1,3 +1,5 @@
+import Question from './Question';
+import Answer from './Answer';
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
@@ -7,7 +9,7 @@ const productSchema = new mongoose.Schema({
   },
   "results": [
     {
-      "question_id": Number,
+      "_id": Number,
       "question_body": {
         type: String,
         required: true
@@ -24,7 +26,7 @@ const productSchema = new mongoose.Schema({
       "reported": Number,
       "answers": [
         {
-          "id": {
+          "_id": {
             type: Number,
             required: true
           },

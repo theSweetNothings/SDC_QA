@@ -1,10 +1,11 @@
 const faker = require('faker');
 const fs = require('fs');
+const mongoose = require('mongoose');
 
-const writeQuestions = fs.createWriteStream('questions.json');
+const writeQuestions = fs.createWriteStream('questions3.json');
 
 const writeOneMillionQuestions = (writer, encoding, cb) => {
-  let i = 1000000;
+  let i = 50;
   let id = 0;
   const write = () => {
     let ok = true;
@@ -37,7 +38,7 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
 
         for (let i = 0; i < randomNum; i++) {
           let answerObj = {
-            id: faker.random.number(),
+            _id: faker.random.number().toString(),
             body: faker.lorem.sentence(),
             date: faker.date.between('2020-09-01', '2020-12-05').toISOString(),
             answerer_name: faker.internet.userName(),
@@ -59,7 +60,7 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
 
         for (let i = 0; i < randomNum; i++) {
           let questionObj = {
-            question_id: faker.random.number(),
+            _id: faker.random.number().toString(),
             question_body: faker.lorem.sentence(),
             question_date: faker.date.between('2020-09-01', '2020-12-05'),
             asker_name: faker.internet.userName(),

@@ -12,6 +12,6 @@ const newAnswer = async ({ body }) => {
   // do something
 };
 
-module.exports = [
+module.exports = {
   newQuestion, newAnswer
-];
+};

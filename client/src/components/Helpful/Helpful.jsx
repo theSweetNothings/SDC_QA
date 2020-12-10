@@ -13,11 +13,11 @@ const Helpful = function(props) {
   const handleClick = function(event) {
     setClicked(true);
     if (props.question) {
-      axios.put(`http://52.26.193.201:3000/qa/question/${props.question}/helpful`)
+      axios.put(`/qa/question/${props.question}/helpful`)
         .then(() => props.updateHelp())
         .catch(error => console.log(error));
     } else if (props.answer) {
-      axios.put(`http://52.26.193.201:3000/qa/answer/${props.answer}/helpful`)
+      axios.put(`/qa/answer/${props.answer}/helpful`)
         .then(() => props.updateHelp())
         .catch(error => console.log(error));
     }
