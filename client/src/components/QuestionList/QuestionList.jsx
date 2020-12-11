@@ -59,7 +59,7 @@ const QuestionList = function(props) {
   const questions = props.questions
     .sort((a,b) => b.question_helpfulness - a.question_helpfulness)
     .map(question => (
-      <Section key={question._id}>
+      <Section key={question.question_id}>
         <Question
           question={question}
           product={props.product}

@@ -4,7 +4,7 @@ import { ModalBackground, ExitModalArticle, ExitModalBtn, ModalContent, ModalFor
 import { handleChange, handleSubmit } from './helpers.js';
 import PhotosModal from '../PhotosModal/PhotosModal.jsx';
 
-const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerForm, togglePhotosModal, handleClose }) {
+const AnswerModal = function({ product, question, showPhotosModal, toggleAnswerForm, togglePhotosModal, handleClose }) {
   const [ answer, setAnswer ] = useState(
     { body: '', name: '', email: '', photos: null });
   const [ error, setError ] = useState(null);
@@ -44,7 +44,7 @@ const AnswerModal = function({ product, question,showPhotosModal, toggleAnswerFo
           </ExitModalArticle>
           <h2>Submit your Answer</h2>
           <h3>{product.name}:  {question.question_body}</h3>
-          <ModalForm onSubmit={() => handleSubmit(event, toggleAnswerForm, answer, `${question._id}/answers`, setError)}>
+          <ModalForm onSubmit={() => handleSubmit(event, toggleAnswerForm, answer, `${question.question_id}/answers`, setError)}>
             <ModalLabel>Your Answer*
               <ModalTextarea
                 type='text'

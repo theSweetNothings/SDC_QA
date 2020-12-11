@@ -38,7 +38,7 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
 
         for (let i = 0; i < randomNum; i++) {
           let answerObj = {
-            _id: faker.random.number().toString(),
+            id: faker.random.number(),
             body: faker.lorem.sentence(),
             date: faker.date.between('2020-09-01', '2020-12-05').toISOString(),
             answerer_name: faker.internet.userName(),
@@ -60,7 +60,7 @@ const writeOneMillionQuestions = (writer, encoding, cb) => {
 
         for (let i = 0; i < randomNum; i++) {
           let questionObj = {
-            _id: faker.random.number().toString(),
+            question_id: faker.random.number(),
             question_body: faker.lorem.sentence(),
             question_date: faker.date.between('2020-09-01', '2020-12-05'),
             asker_name: faker.internet.userName(),

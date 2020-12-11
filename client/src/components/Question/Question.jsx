@@ -41,7 +41,7 @@ const Question = function({ question, product, toggleAnswerForm, updateHelp }) {
       </StyledQuestion>
       <HelpfulAndAddAnswer>
         <Helpful
-          question={question._id}
+          question={question.question_id}
           helpful={question.question_helpfulness}
           updateHelp={updateHelp}
         />

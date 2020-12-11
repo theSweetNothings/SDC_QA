@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const answerSchema = new mongoose.Schema({
-  "_id": {
-    type: String
+  "id": {
+    type: Number
   },
   "body": {
     type: String,
@@ -29,8 +29,8 @@ const answerSchema = new mongoose.Schema({
 const Answer = mongoose.model('Answer', answerSchema);
 
 const questionSchema = new mongoose.Schema({
-  "_id": {
-    type: String,
+  "question_id": {
+    type: Number,
   },
   "question_body": {
     type: String,
@@ -46,7 +46,7 @@ const questionSchema = new mongoose.Schema({
   },
   "question_helpfulness": Number,
   "reported": Number,
-  "answers": [ answerSchema ]
+  "answers": [answerSchema]
 });
 
 const Question = mongoose.model('Question', questionSchema);
@@ -56,7 +56,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  "results": [ questionSchema ]
+  "results": [questionSchema]
 });
 
 const Product = mongoose.model('Product', productSchema);

@@ -5,6 +5,8 @@ const path = require('path');
 const compression = require('compression');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const queries = require('./queries');
+const Schema = require('../models/Schema');
 
 app.use(express.static('../client/dist'));
 app.use(express.urlencoded({ extended: true }))
@@ -19,19 +21,18 @@ mongoose.connect('mongodb://localhost:27017/sdcDB_test2', {
   .then(() => console.log('Connection open for sdcDB_test2...'))
   .catch(err => console.log('ERROR:', err));
 
-// TODO: import queries
+const connection = mongoose.connection;
 
-const Schema = require('../models/Schema');
-console.log(Schema.Question)
-
+console.log(queries)
+console.log(Schema)
 /* SDC Server Routes */
 
 // GET
+
 app.get('/qa/:product_id', async (req, res) => {
   try {
-    const productId = req.params.product_id;
-    const questions = await Schema.Product.findOne({ product_id: productId }).lean();
-    res.status(200).send(questions);
+    queries.getQuestions( req.params.product_id )
+      .then(response => res.status(200).send(response))
   } catch(err) {
     console.log('ERROR:', err);
   }
@@ -41,49 +42,34 @@ app.get('/qa/:question_id/answers', (req, res) => {
   const questionId = req.params;
   console.log(questionId);
   // do database stuff
-  // res.sendStatus(200);
+  res.sendStatus(200);
 }) // gets answers for single question
 
 app.get('/products/:product_id', (req, res) => {
-  const { productId } = req.params;
+  const productId = req.params;
   // do database stuff
   res.sendStatus(200);
 }) // gets product info
 
 // POST
 
-app.post('/qa/:product_id', async (req, res) => {
+app.post('/qa/:product_id', async ( req, res ) => {
   try {
-    const query = { product_id: req.params.product_id};
-    const questionData = {
-      question_body: req.body.body,
-      asker_name: req.body.name,
-      question_date: new Date().toISOString(),
-      question_helpfulness: 0,
-      reported: 0
-    }
-
-    const newQuestion = new Schema.Question(questionData);
-
-    const result = await Schema.Product.findOneAndUpdate(
-      query,
-      { $push:
-        { results: newQuestion }
-      },
-      { new: true }
-      )
-
-      res.sendStatus(201);
-    } catch(err) {
-      console.log('ERROR:', err);
-    }
-  }) // adds question
+    queries.addQuestion( req.params.product_id, req.body )
+      .then( response => res.sendStatus(201) );
+  } catch( err ) {
+    console.log('ERROR:', err);
+  }
+}) // adds question
 
   app.post('/qa/:question_id/answers', async (req, res) => {
     try {
-      const query = { _id: req.params.question_id }
-      console.log(query)
+
+      const questionId = req.params.question_id;
+
+      const query = { 'results.question_id': req.params.question_id }
       const answerData = {
+        id: faker.random.number(),
         body: req.body.body,
         date: new Date().toISOString(),
         answerer_name: req.body.name,
@@ -93,15 +79,26 @@ app.post('/qa/:product_id', async (req, res) => {
       }
 
       const newAnswer = new Schema.Answer(answerData);
-      console.log(newAnswer);
+      // console.log(query, newAnswer);
 
-      const result = Schema.Question.findOneAndUpdate(
-        query,
-        { $push:
-          {answers: newAnswer}
-        },
-        { new: true }
-      )
+      // store result of $indexOfArray in questionIdx
+      // call Product.findOneAndUpdate where { 'results.question_id': question_id }, then $push answer to results[questionIdx].answers
+
+      // connection.find({
+      //   $indexOfArray: [
+      //     results.question_id,
+      //     questionId
+      //   ]
+      // })
+
+      // const result = await Schema.Product.findOneAndUpdate(
+      //   query,
+      //   { $push:
+      //     // get index of individual question that matches question_id
+      //     { results.req.params.question_id.answers: newAnswer }
+      //   },
+      //   { new: true }
+      // )
 
       res.sendStatus(201);
     } catch(err) {
@@ -139,10 +136,10 @@ app.put('/qa/question/:question_id/report', (req, res) => {
 app.put('/qa/answer/:answer_id/helpful', (req, res) => {
   const query = { _id: req.params };
 
-  const incQHelpful = await Product.findOneAndUpdate(
+  const incAHelpful= await Product.findOneAndUpdate(
     query,
     { $inc:
-      { question_helpfulness: 1 }
+      { helpfulness: 1 }
     },
     { new: true }
   );
