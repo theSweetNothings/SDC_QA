@@ -26,7 +26,7 @@ const addQuestion = (id, body) => {
   const query = { product_id: id },
         question = makeNewQuestion(body)
 
-  return Schema.Product.findOne(query)
+  Schema.Product.findOne(query)
     .exec()
     .then(product => {
       product.results.push(question);
@@ -93,7 +93,7 @@ const markQHelpful = async (questionId) => {
   Schema.Product.findOne(query)
     .exec()
     .then(product => {
-      product.results[index].question_helpfulness = product.results[index].question_helpfulness + 1;
+      product.results[index].question_helpfulness += 1;
       product.save();
       return;
     })
