@@ -22,7 +22,7 @@ const QuestionsAndAnswers = function(props) {
     let isMounted = true; // Keep track of whether component is mounted
     const id = props.match.params.id || '25'; // React router provides id in props
     // Get questions from API & set state only if the component is still mounted
-    axios.get(`/qa/${id}`)
+    axios.get(`http://localhost:42069/qa/${id}`)
       .then(response => {
         // console.log(response.data)
         if (isMounted) {

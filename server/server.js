@@ -14,104 +14,106 @@ app.use(express.json());
 app.use(cors());
 app.use(compression());
 
-mongoose.connect('mongodb://localhost:27017/sdcDB_test2', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log('Connection open for sdcDB_test2...'))
-  .catch(err => console.log('ERROR:', err));
+// mongoose.connect('mongodb://ec2-18-223-0-53.us-east-2.compute.amazonaws.com:27017/SDC_db', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+// .then(() => console.log('Connection open for mongodb...'))
+// .catch(err => console.log('ERROR:', err));
 
-/* SDC Server Routes */
+// /* SDC Server Routes */
 
-// GET
+// // GET
 
-app.get('/qa/:product_id', async (req, res) => {
-  try {
-    queries.getQuestions(req.params.product_id)
-      .then(response => res.status(200).send(response))
-  } catch(err) {
-    console.log('ERROR:', err);
-  }
-}) // gets qa for product
+// app.get('/qa/:product_id', async (req, res) => {
+//   try {
+//     await queries.getQuestions(req.params.product_id)
+//       .then(response => res.status(200).send(response))
 
-app.get('/qa/:question_id/answers', (req, res) => {
-  const questionId = req.params.question_id;
-  console.log(questionId);
-  // do database stuff
-  res.sendStatus(200);
-}) // gets answers for single question
+//   } catch (err) {
+//     console.log('ERROR:', err);
+//     res.json({ msg: err.message })
+//   }
+// }) // gets qa for product
 
-app.get('/products/:product_id', (req, res) => {
-  const productId = req.params.product_id;
-  // do database stuff
-  res.sendStatus(200);
-}) // gets product info
+// app.get('/qa/:question_id/answers', (req, res) => {
+//   const questionId = req.params.question_id;
+//   console.log(questionId);
+//   // do database stuff
+//   res.sendStatus(200);
+// }) // gets answers for single question
 
-// POST
+// app.get('/products/:product_id', (req, res) => {
+//   const productId = req.params.product_id;
+//   // do database stuff
+//   res.sendStatus(200);
+// }) // gets product info
 
-app.post('/qa/:product_id', async (req, res) => {
-  try {
-    await queries.addQuestion(req.params.product_id, req.body);
-    res.sendStatus(201);
-  } catch(err) {
-    console.log('ERROR:', err);
-  }
-}) // adds question
+// // POST
 
-  app.post('/qa/:question_id/answers', async (req, res) => {
-    try {
-      const questionId = req.params.question_id,
-            body = req.body;
+// app.post('/qa/:product_id', async (req, res) => {
+//   try {
+//     await queries.addQuestion(req.params.product_id, req.body);
+//     res.sendStatus(201);
+//   } catch(err) {
+//     console.log('ERROR:', err);
+//   }
+// }) // adds question
 
-      await queries.addAnswer(questionId, body)
-      res.sendStatus(201);
-    } catch(err) {
-      console.log('ERROR:', err);
-    }
-  }) // adds answer to question
+// app.post('/qa/:question_id/answers', async (req, res) => {
+//   try {
+//     const questionId = req.params.question_id,
+//           body = req.body;
 
-  // PUT
+//     await queries.addAnswer(questionId, body)
+//     res.sendStatus(201);
+//   } catch(err) {
+//     console.log('ERROR:', err);
+//   }
+// }) // adds answer to question
 
-  app.put('/qa/question/:question_id/helpful', async (req, res) => {
-    try {
-      const questionId = req.params.question_id;
+// // PUT
 
-      await queries.markQHelpful(questionId);
-      res.sendStatus(204);
-    } catch(err) {
-      console.log('ERROR:', err)
-    }
-  }) // marks question as helpful
+// app.put('/qa/question/:question_id/helpful', async (req, res) => {
+//   try {
+//     const questionId = req.params.question_id;
 
-    {/*
-app.put('/qa/question/:question_id/report', (req, res) => {
-  const { question_id } = req.params;
-  // do database stuff
-  res.sendStatus(204);
-}) // reports question
+//     await queries.markQHelpful(questionId);
+//     res.sendStatus(204);
+//   } catch(err) {
+//     console.log('ERROR:', err)
+//   }
+// }) // marks question as helpful
 
-app.put('/qa/answer/:answer_id/helpful', (req, res) => {
-  const query = { _id: req.params };
+// {/*
+// app.put('/qa/question/:question_id/report', (req, res) => {
+//   const { question_id } = req.params;
+//   // do database stuff
+//   res.sendStatus(204);
+// }) // reports question
 
-  const incAHelpful= await Product.findOneAndUpdate(
-    query,
-    { $inc:
-      { helpfulness: 1 }
-    },
-    { new: true }
-  );
+// app.put('/qa/answer/:answer_id/helpful', (req, res) => {
+//   const query = { _id: req.params };
 
-  res.sendStatus(204);
-  res.sendStatus(204);
-}) // marks answer as helpful
+//   const incAHelpful= await Product.findOneAndUpdate(
+//     query,
+//     { $inc:
+//       { helpfulness: 1 }
+//     },
+//     { new: true }
+//   );
 
-app.put('/qa/answer/:answer_id/report', (req, res) => {
-  const { answerId} = req.params;
-  // do database stuff
-  res.sendStatus(204);
-}) // reports answer
+//   res.sendStatus(204);
+//   res.sendStatus(204);
+// }) // marks answer as helpful
 
-*/}
+// app.put('/qa/answer/:answer_id/report', (req, res) => {
+//   const { answerId} = req.params;
+//   // do database stuff
+//   res.sendStatus(204);
+// }) // reports answer
+
+// */}
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), err => {

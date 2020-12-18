@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const answerSchema = new mongoose.Schema({
   "id": {
-    type: Number
+    type: String,
+    required: true
   },
   "body": {
     type: String,
@@ -30,7 +31,8 @@ const Answer = mongoose.model('Answer', answerSchema);
 
 const questionSchema = new mongoose.Schema({
   "question_id": {
-    type: Number,
+    type: String,
+    required: true
   },
   "question_body": {
     type: String,

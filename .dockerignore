@@ -1,5 +1,10 @@
 node_modules
+build
 .dockerignore
 Dockerfile
+Dockerfile.prod
 .gitignore
 .vscode
+Answer.js
+Question.js
+Product.js

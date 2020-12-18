@@ -3,17 +3,13 @@ const Schema = require('../models/Schema');
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-const ID = () => {
-  return '_' + Math.random().toString(36).substr(2, 9);
-}
-
 const getQuestions = (productId) => {
-  return Schema.Product.findOne({ product_id: productId });
+  return Schema.Product.findOne({ "product_id": productId });
 }
 
 const makeNewQuestion = (data) => {
   const questionData = {
-    question_id: ID(),
+    question_id: faker.random.number(),
     question_body: data.body,
     asker_name: data.name,
     question_date: new Date().toISOString(),
@@ -44,7 +40,7 @@ const getIndex = (id) => {
     '$project': {
       'results': {
         '$indexOfArray':
-          [ '$results.question_id', id ]
+          [ '$results.question_id', Number(id) ]
       }
     }
   }
@@ -55,12 +51,12 @@ const getIndex = (id) => {
     }
   }
 
-  return db.collection('products').aggregate([ pipeline, options ], { "allowDiskUse": true }).toArray();
+  return db.collection('products').aggregate([ pipeline, options ]).toArray();
 }
 
 const makeNewAnswer = (data)  => {
   const answerData = {
-    id: ID(),
+    id: faker.random.number(),
     body: data.body,
     date: new Date().toISOString(),
     answerer_name: data.name,
@@ -75,12 +71,10 @@ const makeNewAnswer = (data)  => {
 };
 
 const addAnswer = async (questionId, body) => {
-  const query = { 'results.question_id': questionId },
+  const query = { 'results.question_id': Number(questionId) },
         answer = makeNewAnswer(body),
         search = await getIndex(questionId),
         index = search[0].results;
-
-  console.log(index)
 
   Schema.Product.findOne(query)
     .exec()
@@ -92,7 +86,7 @@ const addAnswer = async (questionId, body) => {
 }
 
 const markQHelpful = async (questionId) => {
-  const query = { 'results.question_id': questionId },
+  const query = { 'results.question_id': Number(questionId) },
         search = await getIndex(questionId),
         index = search[0].results;
 
